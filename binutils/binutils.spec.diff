@@ -1,0 +1,14 @@
+--- binutils.spec.old	2016-11-23 01:40:14.000000000 +0800
++++ binutils.spec	2016-11-25 12:35:25.000000000 +0800
+@@ -143,9 +143,11 @@
+ BuildRequires: dejagnu, zlib-static, glibc-static, sharutils, bc
+ %if "%{build_gold}" == "both"
+ # The GOLD testsuite needs a static libc++
++%if 0%{?rhel} >= 7
+ BuildRequires: libstdc++-static
+ %endif
+ %endif
++%endif
+ 
+ Conflicts: gcc-c++ < 4.0.0
+ 
