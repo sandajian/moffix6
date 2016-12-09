@@ -27,4 +27,5 @@ If you want to recompile packages, you should following a special sequence of bu
 1. install `epel-rpm-macros' to resolve rpm macros like '%make_build' and '%license'.
 2. Rebuild tools first: (compat-libuv, libuv,) cmake, binutils, gcc49, m4, autoconf, automake
 3. Rebuild libraries that have major version updated: such as compat-lib??? and lib???
+4. Rebuild libraries that have minor version updated: such as sqlite, curl, tbb, ...
 4. Rebuild other packages
