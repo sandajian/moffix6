@@ -1,0 +1,38 @@
+--- automake.spec.old	2016-10-13 23:53:44.000000000 +0800
++++ automake.spec	2016-12-09 07:17:47.000000000 +0800
+@@ -52,7 +52,6 @@
+ 
+ # the filtering macros are currently in /etc/rpm/macros.perl:
+ BuildRequires: perl-generators
+-BuildRequires: perl-macros
+ 
+ # This is needed to allow 'help2man' to run 'automake --help' during build.
+ BuildRequires:   perl(Thread::Queue)
+@@ -71,7 +70,9 @@
+ 
+ %prep
+ %autosetup -p1
+-autoreconf -iv
++
++#autoreconf -iv
++./bootstrap.sh
+ 
+ file=`find -name config.sub | head -1`
+ cp %{SOURCE2} $file
+@@ -91,6 +92,7 @@
+ 
+ %install
+ make install DESTDIR=%{buildroot}
++rm -fr %{buildroot}%{_docdir}
+ 
+ %check
+ # %%global TESTS_FLAGS t/preproc-errmsg t/preproc-basics
+@@ -109,7 +111,7 @@
+ 
+ %files
+ %doc AUTHORS README THANKS NEWS README.aclocal README.multilib COPYING*
+-%doc %{_pkgdocdir}/amhello-1.0.tar.gz
++%doc doc/amhello-1.0.tar.gz
+ %exclude %{_infodir}/dir
+ %exclude %{_datadir}/aclocal
+ %{_bindir}/*
