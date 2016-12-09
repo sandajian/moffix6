@@ -22,4 +22,9 @@ Download repo file from:
 
 	https://copr.fedorainfracloud.org/coprs/chenxy/moffix6/repo/epel-6/chenxy-moffix6-epel-6.repo
 
-If you want to recompile some packages, you should install `epel-rpm-macros' to resolve rpm macros like '%make_build' and '%license'.
+If you want to recompile packages, you should following a special sequence of building:
+
+1. install `epel-rpm-macros' to resolve rpm macros like '%make_build' and '%license'.
+2. Rebuild tools first: (compat-libuv, libuv,) cmake, binutils, gcc49, m4, autoconf, automake
+3. Rebuild libraries that have major version updated: such as compat-lib??? and lib???
+4. Rebuild other packages
