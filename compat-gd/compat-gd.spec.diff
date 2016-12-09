@@ -1,5 +1,5 @@
---- gd.spec.old	2012-09-10 14:46:56.000000000 +0800
-+++ gd.spec	2016-12-01 23:12:38.000000000 +0800
+--- compat-gd.spec.old	2012-09-10 14:46:56.000000000 +0800
++++ compat-gd.spec	2016-12-01 23:12:38.000000000 +0800
 @@ -1,11 +1,11 @@
  Summary:       A graphics library for quick creation of PNG or JPEG images
 -Name:          gd

@@ -1,5 +1,5 @@
---- libuv.spec.old	2015-02-25 07:39:26.000000000 +0800
-+++ libuv.spec	2016-12-07 20:57:22.000000000 +0800
+--- compat-libuv.spec.old	2015-02-25 07:39:26.000000000 +0800
++++ compat-libuv.spec	2016-12-07 20:57:22.000000000 +0800
 @@ -2,7 +2,7 @@
  #this should be changed to %%{version} in unstable (odd numbered) releases
  %global sover 0.10

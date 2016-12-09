@@ -1,5 +1,5 @@
---- libmemcached.spec.old	2010-06-25 00:04:26.000000000 +0800
-+++ libmemcached.spec	2016-12-02 09:26:46.000000000 +0800
+--- compat-libmemcached.spec.old	2010-06-25 00:04:26.000000000 +0800
++++ compat-libmemcached.spec	2016-12-02 09:26:46.000000000 +0800
 @@ -1,4 +1,4 @@
 -Name:      libmemcached
 +Name:      compat-libmemcached

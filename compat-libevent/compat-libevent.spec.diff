@@ -1,5 +1,5 @@
---- libevent.spec.old	2012-04-23 22:03:09.000000000 +0800
-+++ libevent.spec	2016-12-02 09:06:01.000000000 +0800
+--- compat-libevent.spec.old	2012-04-23 22:03:09.000000000 +0800
++++ compat-libevent.spec	2016-12-02 09:06:01.000000000 +0800
 @@ -1,4 +1,4 @@
 -Name:           libevent
 +Name:           compat-libevent

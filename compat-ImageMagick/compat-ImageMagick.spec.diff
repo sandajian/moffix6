@@ -1,5 +1,5 @@
---- ImageMagick.spec.old	2016-06-03 23:11:39.000000000 +0800
-+++ ImageMagick.spec	2016-12-02 10:34:39.000000000 +0800
+--- compat-ImageMagick.spec.old	2016-06-03 23:11:39.000000000 +0800
++++ compat-ImageMagick.spec	2016-12-02 10:34:39.000000000 +0800
 @@ -1,16 +1,16 @@
  %define VER 6.7.2
  %define Patchlevel 7
