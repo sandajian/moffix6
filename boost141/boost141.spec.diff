@@ -1,0 +1,291 @@
+--- boost141.spec.old	2015-12-24 04:56:23.000000000 +0800
++++ boost141.spec	2016-12-03 14:45:09.000000000 +0800
+@@ -25,14 +25,14 @@
+   %bcond_without openmpi
+ %endif
+ 
+-Name: boost
++Name: boost141
+ Summary: The free peer-reviewed portable C++ source libraries
+ Version: 1.41.0
+ Release: 28%{?dist}
+ License: Boost
+ URL: http://sodium.resophonic.com/boost-cmake/%{version}.cmake0/
+ Group: System Environment/Libraries
+-%define full_version %{name}-%{version}.cmake0
++%define full_version boost-%{version}.cmake0
+ Source0: %{url}/%{full_version}.tar.gz
+ Source1: __init__.py
+ 
+@@ -57,19 +57,19 @@
+ # components, except for MPI sub-packages.  Those are "speacial", one
+ # doesn't necessarily need them and the more typical scenario, I
+ # think, will be that the developer wants to pick one MPI flavor.
+-Requires: boost-date-time%{?_isa} = %{version}-%{release}
+-Requires: boost-filesystem%{?_isa} = %{version}-%{release}
+-Requires: boost-graph%{?_isa} = %{version}-%{release}
+-Requires: boost-iostreams%{?_isa} = %{version}-%{release}
+-Requires: boost-program-options%{?_isa} = %{version}-%{release}
+-Requires: boost-python%{?_isa} = %{version}-%{release}
+-Requires: boost-regex%{?_isa} = %{version}-%{release}
+-Requires: boost-serialization%{?_isa} = %{version}-%{release}
+-Requires: boost-signals%{?_isa} = %{version}-%{release}
+-Requires: boost-system%{?_isa} = %{version}-%{release}
+-Requires: boost-test%{?_isa} = %{version}-%{release}
+-Requires: boost-thread%{?_isa} = %{version}-%{release}
+-Requires: boost-wave%{?_isa} = %{version}-%{release}
++Requires: boost141-date-time%{?_isa} = %{version}-%{release}
++Requires: boost141-filesystem%{?_isa} = %{version}-%{release}
++Requires: boost141-graph%{?_isa} = %{version}-%{release}
++Requires: boost141-iostreams%{?_isa} = %{version}-%{release}
++Requires: boost141-program-options%{?_isa} = %{version}-%{release}
++Requires: boost141-python%{?_isa} = %{version}-%{release}
++Requires: boost141-regex%{?_isa} = %{version}-%{release}
++Requires: boost141-serialization%{?_isa} = %{version}-%{release}
++Requires: boost141-signals%{?_isa} = %{version}-%{release}
++Requires: boost141-system%{?_isa} = %{version}-%{release}
++Requires: boost141-test%{?_isa} = %{version}-%{release}
++Requires: boost141-thread%{?_isa} = %{version}-%{release}
++Requires: boost141-wave%{?_isa} = %{version}-%{release}
+ 
+ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+ BuildRequires: cmake
+@@ -154,7 +154,7 @@
+ %package filesystem
+ Summary: Runtime component of boost filesystem library
+ Group: System Environment/Libraries
+-Requires: boost-system%{?_isa} = %{version}-%{release}
++Requires: boost141-system%{?_isa} = %{version}-%{release}
+ 
+ %description filesystem
+ 
+@@ -166,7 +166,7 @@
+ Summary: Runtime component of boost graph library
+ Group: System Environment/Libraries
+ # boost::graph depends on boost::regex for reading graphviz files.
+-Requires: boost-regex%{?_isa} = %{version}-%{release}
++Requires: boost141-regex%{?_isa} = %{version}-%{release}
+ 
+ %description graph
+ 
+@@ -271,10 +271,10 @@
+ %package wave
+ Summary: Runtime component of boost C99/C++ preprocessing library
+ Group: System Environment/Libraries
+-Requires: boost-date-time%{?_isa} = %{version}-%{release}
+-Requires: boost-filesystem%{?_isa} = %{version}-%{release}
+-Requires: boost-system%{?_isa} = %{version}-%{release}
+-Requires: boost-thread%{?_isa} = %{version}-%{release}
++Requires: boost141-date-time%{?_isa} = %{version}-%{release}
++Requires: boost141-filesystem%{?_isa} = %{version}-%{release}
++Requires: boost141-system%{?_isa} = %{version}-%{release}
++Requires: boost141-thread%{?_isa} = %{version}-%{release}
+ 
+ %description wave
+ 
+@@ -285,8 +285,8 @@
+ %package devel
+ Summary: The Boost C++ headers and shared development libraries
+ Group: Development/Libraries
+-Requires: boost%{?_isa} = %{version}-%{release}
+-Provides: boost-python-devel = %{version}-%{release}
++Requires: boost141%{?_isa} = %{version}-%{release}
++Provides: boost141-python-devel = %{version}-%{release}
+ 
+ %description devel
+ Headers and shared object symlinks for the Boost C++ libraries.
+@@ -294,9 +294,9 @@
+ %package static
+ Summary: The Boost C++ static development libraries
+ Group: Development/Libraries
+-Requires: boost-devel%{?_isa} = %{version}-%{release}
++Requires: boost141-devel%{?_isa} = %{version}-%{release}
+ Obsoletes: boost-devel-static < 1.34.1-14
+-Provides: boost-devel-static = %{version}-%{release}
++Provides: boost141-devel-static = %{version}-%{release}
+ 
+ %description static
+ Static Boost C++ libraries.
+@@ -307,7 +307,7 @@
+ %if 0%{?fedora} >= 10
+ BuildArch: noarch
+ %endif
+-Provides: boost-python-docs = %{version}-%{release}
++Provides: boost141-python-docs = %{version}-%{release}
+ 
+ %description doc
+ This package contains the documentation in the HTML format of the Boost C++
+@@ -322,7 +322,7 @@
+ Group: System Environment/Libraries
+ Requires: openmpi%{?_isa}
+ BuildRequires: openmpi-devel
+-Requires: boost-serialization%{?_isa} = %{version}-%{release}
++Requires: boost141-serialization%{?_isa} = %{version}-%{release}
+ 
+ %description openmpi
+ 
+@@ -332,10 +332,10 @@
+ %package openmpi-devel
+ Summary: Shared library symlinks for Boost.MPI
+ Group: System Environment/Libraries
+-Requires: boost-devel%{?_isa} = %{version}-%{release}
+-Requires: boost-openmpi%{?_isa} = %{version}-%{release}
+-Requires: boost-openmpi-python%{?_isa} = %{version}-%{release}
+-Requires: boost-graph-openmpi%{?_isa} = %{version}-%{release}
++Requires: boost141-devel%{?_isa} = %{version}-%{release}
++Requires: boost141-openmpi%{?_isa} = %{version}-%{release}
++Requires: boost141-openmpi-python%{?_isa} = %{version}-%{release}
++Requires: boost141-graph-openmpi%{?_isa} = %{version}-%{release}
+ 
+ %description openmpi-devel
+ 
+@@ -345,9 +345,9 @@
+ %package openmpi-python
+ Summary: Python runtime component of Boost.MPI library
+ Group: System Environment/Libraries
+-Requires: boost-openmpi%{?_isa} = %{version}-%{release}
+-Requires: boost-python%{?_isa} = %{version}-%{release}
+-Requires: boost-serialization%{?_isa} = %{version}-%{release}
++Requires: boost141-openmpi%{?_isa} = %{version}-%{release}
++Requires: boost141-python%{?_isa} = %{version}-%{release}
++Requires: boost141-serialization%{?_isa} = %{version}-%{release}
+ 
+ %description openmpi-python
+ 
+@@ -357,8 +357,8 @@
+ %package graph-openmpi
+ Summary: Runtime component of parallel boost graph library
+ Group: System Environment/Libraries
+-Requires: boost-openmpi%{?_isa} = %{version}-%{release}
+-Requires: boost-serialization%{?_isa} = %{version}-%{release}
++Requires: boost141-openmpi%{?_isa} = %{version}-%{release}
++Requires: boost141-serialization%{?_isa} = %{version}-%{release}
+ 
+ %description graph-openmpi
+ 
+@@ -377,7 +377,7 @@
+ Group: System Environment/Libraries
+ Requires: mpich%{?_isa}
+ BuildRequires: mpich-devel
+-Requires: boost-serialization%{?_isa} = %{version}-%{release}
++Requires: boost141-serialization%{?_isa} = %{version}-%{release}
+ Obsoletes: boost-mpich2 < 1.41.0-25
+ 
+ %description mpich
+@@ -388,10 +388,10 @@
+ %package mpich-devel
+ Summary: Shared library symlinks for Boost.MPI
+ Group: System Environment/Libraries
+-Requires: boost-devel%{?_isa} = %{version}-%{release}
+-Requires: boost-mpich%{?_isa} = %{version}-%{release}
+-Requires: boost-mpich-python%{?_isa} = %{version}-%{release}
+-Requires: boost-graph-mpich%{?_isa} = %{version}-%{release}
++Requires: boost141-devel%{?_isa} = %{version}-%{release}
++Requires: boost141-mpich%{?_isa} = %{version}-%{release}
++Requires: boost141-mpich-python%{?_isa} = %{version}-%{release}
++Requires: boost141-graph-mpich%{?_isa} = %{version}-%{release}
+ Obsoletes: boost-mpich2-devel < 1.41.0-25
+ 
+ %description mpich-devel
+@@ -402,9 +402,9 @@
+ %package mpich-python
+ Summary: Python runtime component of Boost.MPI library
+ Group: System Environment/Libraries
+-Requires: boost-mpich%{?_isa} = %{version}-%{release}
+-Requires: boost-python%{?_isa} = %{version}-%{release}
+-Requires: boost-serialization%{?_isa} = %{version}-%{release}
++Requires: boost141-mpich%{?_isa} = %{version}-%{release}
++Requires: boost141-python%{?_isa} = %{version}-%{release}
++Requires: boost141-serialization%{?_isa} = %{version}-%{release}
+ Obsoletes: boost-mpich2-python < 1.41.0-25
+ 
+ %description mpich-python
+@@ -415,8 +415,8 @@
+ %package graph-mpich
+ Summary: Runtime component of parallel boost graph library
+ Group: System Environment/Libraries
+-Requires: boost-mpich%{?_isa} = %{version}-%{release}
+-Requires: boost-serialization%{?_isa} = %{version}-%{release}
++Requires: boost141-mpich%{?_isa} = %{version}-%{release}
++Requires: boost141-serialization%{?_isa} = %{version}-%{release}
+ Obsoletes: boost-graph-mpich2 < 1.41.0-25
+ 
+ %description graph-mpich
+@@ -600,9 +600,34 @@
+ # The cmake files installed in /usr/share and libdir are not compatible
+ # with cmake 2.8 (see #1245805) so don't install them.
+ # Install them in /usr/lib{,64} instead.
+-%{__rm} -Rf $RPM_BUILD_ROOT%{_datadir}/%{name}-%{version}/cmake
++%{__rm} -Rf $RPM_BUILD_ROOT%{_datadir}/boost-%{version}/cmake
+ %{__rm} -f $RPM_BUILD_ROOT/%{_libdir}/*.cmake
+ 
++# Perform the necessary renaming according to package renaming
++mkdir -p $RPM_BUILD_ROOT{%{_includedir},%{_libdir}/{.,{mpich,openmpi}/lib}}/%{name}
++mv -f $RPM_BUILD_ROOT%{_includedir}/{boost,%{name}}
++mv -f $RPM_BUILD_ROOT%{_libdir}/{*.a,%{name}}
++for library in $RPM_BUILD_ROOT%{_libdir}/*.so; do
++  rm -f $library
++  ln -s ../$(basename $library).%{sonamever} $RPM_BUILD_ROOT%{_libdir}/%{name}/$(basename $library)
++done
++
++%if %{with mpich}
++mv -f $RPM_BUILD_ROOT%{_libdir}/mpich/lib/{*.a,%{name}}
++for library in $RPM_BUILD_ROOT%{_libdir}/mpich/lib/*.so; do
++  rm -f $library
++  ln -s ../$(basename $library).%{sonamever} $RPM_BUILD_ROOT%{_libdir}/mpich/lib/%{name}/$(basename $library)
++done
++%endif
++
++%if %{with openmpi}
++mv -f $RPM_BUILD_ROOT%{_libdir}/openmpi/lib/{*.a,%{name}}
++for library in $RPM_BUILD_ROOT%{_libdir}/openmpi/lib/*.so; do
++  rm -f $library
++  ln -s ../$(basename $library).%{sonamever} $RPM_BUILD_ROOT%{_libdir}/openmpi/lib/%{name}/$(basename $library)
++done
++%endif
++
+ %clean
+ %{__rm} -rf $RPM_BUILD_ROOT
+ 
+@@ -748,18 +773,18 @@
+ %defattr(-, root, root, -)
+ %doc LICENSE_1_0.txt
+ %{_includedir}/%{name}
+-%{_libdir}/libboost_*.so
+-%{_datadir}/%{name}-%{version}
++%{_libdir}/%{name}/libboost_*.so
++%{_datadir}/boost-%{version}
+ 
+ %files static
+ %defattr(-, root, root, -)
+ %doc LICENSE_1_0.txt
+-%{_libdir}/*.a
++%{_libdir}/%{name}/*.a
+ %if %{with mpich}
+-%{_libdir}/mpich/lib/*.a
++%{_libdir}/mpich/lib/%{name}/*.a
+ %endif
+ %if %{with openmpi}
+-%{_libdir}/openmpi/lib/*.a
++%{_libdir}/openmpi/lib/%{name}/*.a
+ %endif
+ 
+ # OpenMPI packages
+@@ -774,7 +799,7 @@
+ %files openmpi-devel
+ %defattr(-, root, root, -)
+ %doc LICENSE_1_0.txt
+-%{_libdir}/openmpi/lib/libboost_*.so
++%{_libdir}/openmpi/lib/%{name}/libboost_*.so
+ 
+ %files openmpi-python
+ %defattr(-, root, root, -)
+@@ -802,7 +827,7 @@
+ %files mpich-devel
+ %defattr(-, root, root, -)
+ %doc LICENSE_1_0.txt
+-%{_libdir}/mpich/lib/libboost_*.so
++%{_libdir}/mpich/lib/%{name}/libboost_*.so
+ 
+ %files mpich-python
+ %defattr(-, root, root, -)
