@@ -1,0 +1,80 @@
+--- gd.spec.old	2012-09-10 14:46:56.000000000 +0800
++++ gd.spec	2016-12-01 23:12:38.000000000 +0800
+@@ -1,11 +1,11 @@
+ Summary:       A graphics library for quick creation of PNG or JPEG images
+-Name:          gd
++Name:          compat-gd
+ Version:       2.0.35
+ Release:       11%{?dist}
+ Group:         System Environment/Libraries
+ License:       MIT
+ URL:           http://www.libgd.org/Main_Page
+-Source0:       http://www.libgd.org/releases/%{name}-%{version}.tar.bz2
++Source0:       http://www.libgd.org/releases/gd-%{version}.tar.bz2
+ Patch0:        gd-2.0.33-freetype.patch
+ Patch3:        gd-2.0.34-multilib.patch
+ Patch4:        gd-loop.patch
+@@ -29,30 +29,8 @@
+ browsers. Note that gd is not a paint program.
+ 
+ 
+-%package progs
+-Requires:       gd = %{version}-%{release}
+-Summary:        Utility programs that use libgd
+-Group:          Applications/Multimedia
+-
+-%description progs
+-The gd-progs package includes utility programs supplied with gd, a
+-graphics library for creating PNG and JPEG images. 
+-
+-
+-%package devel
+-Summary:  The development libraries and header files for gd
+-Group:    Development/Libraries
+-Requires: gd = %{version}-%{release}
+-Requires: libX11-devel, libXpm-devel, libjpeg-devel, freetype-devel
+-Requires: libpng-devel, zlib-devel, fontconfig-devel
+-Requires: pkgconfig
+-
+-%description devel
+-The gd-devel package contains the development libraries and header
+-files for gd, a graphics library for creating PNG and JPEG graphics.
+-
+ %prep
+-%setup -q
++%setup -q -n gd-%{version}
+ %patch0 -p1 -b .freetype
+ %patch3 -p1 -b .mlib
+ %patch4 -p1 -b .loop
+@@ -70,9 +48,8 @@
+ 
+ %install
+ rm -rf $RPM_BUILD_ROOT
+-make install INSTALL='install -p' DESTDIR=$RPM_BUILD_ROOT 
+-rm $RPM_BUILD_ROOT/%{_libdir}/libgd.la
+-rm $RPM_BUILD_ROOT/%{_libdir}/libgd.a
++mkdir -p $RPM_BUILD_ROOT/%{_libdir}/
++cp -a .libs/libgd.so.* $RPM_BUILD_ROOT/%{_libdir}/
+ 
+ %clean
+ rm -rf $RPM_BUILD_ROOT
+@@ -87,19 +64,6 @@
+ %doc COPYING README-JPEG.TXT index.html NEWS
+ %{_libdir}/*.so.*
+ 
+-%files progs
+-%defattr(-,root,root,-)
+-%{_bindir}/*
+-%exclude %{_bindir}/gdlib-config
+-
+-%files devel
+-%defattr(-,root,root,-)
+-%doc index.html
+-%{_bindir}/gdlib-config
+-%{_includedir}/*
+-%{_libdir}/*.so
+-%{_libdir}/pkgconfig/gdlib.pc
+-
+ %changelog
+ * Mon Sep 10 2012 Honza Horak <hhorak@redhat.com> - 2.0.35-11
+ - fix AALineThick.patch to draw line with inversed coordinates correctly
