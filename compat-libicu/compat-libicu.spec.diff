@@ -1,0 +1,148 @@
+--- icu.spec.old	2016-03-03 00:31:58.000000000 +0800
++++ icu.spec	2016-12-02 13:58:47.000000000 +0800
+@@ -1,15 +1,14 @@
+-Name:      icu
++Name:      compat-libicu
+ Version:   4.2.1
+ Release:   14%{?dist}
+-Summary:   International Components for Unicode
+-Group:     Development/Tools
++Summary:   International Components for Unicode - libraries
++Group:     System Environment/Libraries
+ License:   MIT and UCD and Public Domain
+ URL:       http://www.icu-project.org/
+ Source0:   http://download.icu-project.org/files/icu4c/4.2.1/icu4c-4_2_1-src.tgz
+ Source1:   icu-config
+ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+ BuildRequires: doxygen, autoconf
+-Requires: lib%{name}%{?_isa} = %{version}-%{release}
+ 
+ Patch1:  icu-3.4-multiarchdevel.patch
+ Patch2:  icu.6995.kannada.patch
+@@ -23,13 +22,6 @@
+ Patch10: icu.8320.freeserif.crash.patch
+ 
+ %description
+-Tools and utilities for developing with icu.
+-
+-%package -n lib%{name}
+-Summary: International Components for Unicode - libraries
+-Group:   System Environment/Libraries
+-
+-%description -n lib%{name}
+ The International Components for Unicode (ICU) libraries provide
+ robust and full-featured Unicode services on a wide variety of
+ platforms. ICU supports the most current version of the Unicode
+@@ -41,25 +33,8 @@
+ sacrificing performance. It offers great flexibility to extend and
+ customize the supplied services.
+ 
+-%package  -n lib%{name}-devel
+-Summary:  Development files for International Components for Unicode
+-Group:    Development/Libraries
+-Requires: lib%{name}%{?_isa} = %{version}-%{release}
+-Requires: pkgconfig
+-
+-%description -n lib%{name}-devel
+-Includes and definitions for developing with icu.
+-
+-%package -n lib%{name}-doc
+-Summary: Documentation for International Components for Unicode
+-Group:   Documentation
+-BuildArch: noarch
+-
+-%description -n lib%{name}-doc
+-%{summary}.
+-
+ %prep
+-%setup -q -n %{name}
++%setup -q -n icu
+ %patch1 -p1 -b .multiarchdevel
+ %patch2 -p1 -b .icu6995.kannada.patch
+ %patch3 -p1 -b .icu7039.badextract.patch
+@@ -73,7 +48,6 @@
+ 
+ %build
+ cd source
+-autoconf
+ CFLAGS='%optflags -fno-strict-aliasing'
+ CXXFLAGS='%optflags -fno-strict-aliasing'
+ %configure --with-data-packaging=library --disable-samples
+@@ -83,14 +57,9 @@
+ make doc
+ 
+ %install
+-rm -rf $RPM_BUILD_ROOT source/__docs
+-make -C source install DESTDIR=$RPM_BUILD_ROOT
+-make -C source install-doc docdir=__docs
+-chmod +x $RPM_BUILD_ROOT%{_libdir}/*.so.*
+-cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}/%{name}-config
+-chmod 0755 $RPM_BUILD_ROOT%{_bindir}/%{name}-config
+-sed -i s/\\\$\(THREADSCXXFLAGS\)// $RPM_BUILD_ROOT/%{_libdir}/pkgconfig/icu.pc
+-sed -i s/\\\$\(THREADSCPPFLAGS\)/-D_REENTRANT/ $RPM_BUILD_ROOT/%{_libdir}/pkgconfig/icu.pc
++rm -rf $RPM_BUILD_ROOT
++mkdir -p $RPM_BUILD_ROOT%{_libdir}
++cp -a source/lib/*.so.* $RPM_BUILD_ROOT%{_libdir}/
+ 
+ %check
+ make -C source check
+@@ -98,57 +67,14 @@
+ %clean
+ rm -rf $RPM_BUILD_ROOT
+ 
+-%post -n lib%{name} -p /sbin/ldconfig
++%post -p /sbin/ldconfig
+ 
+-%postun -n lib%{name} -p /sbin/ldconfig
++%postun -p /sbin/ldconfig
+ 
+ %files
+ %defattr(-,root,root,-)
+-%doc license.html readme.html
+-%{_bindir}/derb
+-%{_bindir}/genbrk
+-%{_bindir}/gencfu
+-%{_bindir}/gencnval
+-%{_bindir}/genctd
+-%{_bindir}/genrb
+-%{_bindir}/makeconv
+-%{_bindir}/pkgdata
+-%{_bindir}/uconv
+-%{_sbindir}/*
+-%{_mandir}/man1/derb.1*
+-%{_mandir}/man1/gencnval.1*
+-%{_mandir}/man1/genrb.1*
+-%{_mandir}/man1/genbrk.1*
+-%{_mandir}/man1/genctd.1*
+-%{_mandir}/man1/makeconv.1*
+-%{_mandir}/man1/pkgdata.1*
+-%{_mandir}/man1/uconv.1*
+-%{_mandir}/man8/*.8*
+-
+-%files -n lib%{name}
+-%defattr(-,root,root,-)
+ %{_libdir}/*.so.*
+ 
+-%files -n lib%{name}-devel
+-%defattr(-,root,root,-)
+-%{_bindir}/%{name}-config
+-%{_mandir}/man1/%{name}-config.1*
+-%{_includedir}/layout
+-%{_includedir}/unicode
+-%{_libdir}/*.so
+-%{_libdir}/pkgconfig/icu.pc
+-%{_libdir}/%{name}
+-%dir %{_datadir}/%{name}
+-%dir %{_datadir}/%{name}/%{version}
+-%{_datadir}/%{name}/%{version}/install-sh
+-%{_datadir}/%{name}/%{version}/mkinstalldirs
+-%{_datadir}/%{name}/%{version}/config
+-%doc %{_datadir}/%{name}/%{version}/license.html
+-
+-%files -n lib%{name}-doc
+-%defattr(-,root,root,-)
+-%doc source/__docs/%{name}/html/*
+-
+ %changelog
+ * Wed Mar 02 2016 Eike Rathke <erack@redhat.com> - 4.2.1-14
+ - Resolves: rhbz#1247977 add %{?_isa} to Requires for multi-arch systems
