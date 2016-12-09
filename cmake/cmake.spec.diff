@@ -1,5 +1,5 @@
 --- cmake.spec.old	2016-11-12 22:39:55.000000000 +0800
-+++ cmake.spec	2016-12-08 14:31:01.000000000 +0800
++++ cmake.spec	2016-12-09 06:31:03.000000000 +0800
 @@ -70,10 +70,10 @@
  # Patch for renaming on EPEL
  %if 0%{?name_suffix:1}
@@ -12,13 +12,12 @@
  
  BuildRequires:  gcc-gfortran
  BuildRequires:  ncurses-devel, libX11-devel
-@@ -86,8 +86,8 @@
- BuildRequires:  /usr/bin/sphinx-build
+@@ -87,7 +87,7 @@
  %else
  BuildRequires:  libarchive3-devel
-+BuildRequires:  libuv-devel >= 1:1.0.0
  %endif
 -BuildRequires:  libuv-devel
++BuildRequires:  libuv-devel >= 1:1.0.0
  BuildRequires:  xz-devel
  BuildRequires:  zlib-devel
  BuildRequires:  emacs
