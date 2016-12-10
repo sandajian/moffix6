@@ -1,0 +1,11 @@
+--- ocaml-srpm-macros.spec.old	2016-02-04 23:59:18.000000000 +0800
++++ ocaml-srpm-macros.spec	2016-11-29 11:31:38.000000000 +0800
+@@ -8,7 +8,7 @@
+ #
+ # See also: https://bugzilla.redhat.com/show_bug.cgi?id=1087794
+ 
+-%global macros_dir %{_rpmconfigdir}/macros.d
++%global macros_dir %{_sysconfdir}/rpm/
+ 
+ Name:           ocaml-srpm-macros
+ Version:        2
