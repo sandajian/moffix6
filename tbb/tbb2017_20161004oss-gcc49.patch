@@ -1,0 +1,14 @@
+diff -Naur tbb2017_20161004oss.old/build/linux.gcc.inc tbb2017_20161004oss/build/linux.gcc.inc
+--- tbb2017_20161004oss.old/build/linux.gcc.inc	2016-10-05 21:47:03.000000000 +0800
++++ tbb2017_20161004oss/build/linux.gcc.inc	2016-12-09 22:39:57.000000000 +0800
+@@ -32,8 +32,8 @@
+ EXPORT_KEY = -Wl,--version-script,
+ LIBDL = -ldl
+ 
+-CPLUS = g++
+-CONLY = gcc
++CPLUS = g++49
++CONLY = gcc49
+ LIB_LINK_FLAGS = $(DYLIB_KEY) -Wl,-soname=$(BUILDING_LIBRARY)
+ LIBS += -lpthread -lrt
+ LINK_FLAGS = -Wl,-rpath-link=. -rdynamic
