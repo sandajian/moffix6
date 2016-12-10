@@ -1,0 +1,11 @@
+--- ocaml-findlib.spec.old	2016-07-20 04:43:23.000000000 +0800
++++ ocaml-findlib.spec	2016-12-10 13:03:41.000000000 +0800
+@@ -22,7 +22,7 @@
+ 
+ BuildRequires:  ocaml >= 4.02.0
+ BuildRequires:  ocaml-camlp4-devel
+-#BuildRequires:  ocaml-labltk-devel
++BuildRequires:  ocaml-labltk-devel
+ BuildRequires:  ocaml-compiler-libs
+ BuildRequires:  ocaml-ocamldoc
+ BuildRequires:  m4, ncurses-devel
