@@ -1,0 +1,98 @@
+--- greenbone-security-assistant-6.0.11.old/src/gsad.c	2016-12-06 09:15:47.000000000 +0800
++++ greenbone-security-assistant-6.0.11/src/gsad.c	2016-12-06 09:21:39.000000000 +0800
+@@ -250,7 +250,11 @@
+ /**
+  * @brief The IP address of this program, "the GSAD".
+  */
++union {
+ struct sockaddr_storage address;
++struct sockaddr_in gsad_address;
++struct sockaddr_in6 gsad_address6;
++} u_address;
+ 
+ /**
+  * @brief Location for redirection server.
+@@ -4777,7 +4781,7 @@
+ {
+   int ipv6_flag;
+ 
+-  if (address.ss_family == AF_INET6)
++  if (u_address.address.ss_family == AF_INET6)
+ /* LibmicroHTTPD 0.9.28 and higher. */
+ #if MHD_VERSION >= 0x00092800
+     ipv6_flag = MHD_USE_DUAL_STACK;
+@@ -4789,7 +4793,7 @@
+   return MHD_start_daemon
+           (MHD_USE_THREAD_PER_CONNECTION | MHD_USE_DEBUG | ipv6_flag, port,
+            NULL, NULL, handler, NULL, MHD_OPTION_NOTIFY_COMPLETED,
+-           free_resources, NULL, MHD_OPTION_SOCK_ADDR, &address,
++           free_resources, NULL, MHD_OPTION_SOCK_ADDR, &u_address.address,
+            MHD_OPTION_PER_IP_CONNECTION_LIMIT, 30,
+            MHD_OPTION_EXTERNAL_LOGGER, mhd_logger, NULL, MHD_OPTION_END);
+ }
+@@ -4800,7 +4804,7 @@
+ {
+   int ipv6_flag;
+ 
+-  if (address.ss_family == AF_INET6)
++  if (u_address.address.ss_family == AF_INET6)
+ /* LibmicroHTTPD 0.9.28 and higher. */
+ #if MHD_VERSION >= 0x00092800
+     ipv6_flag = MHD_USE_DUAL_STACK;
+@@ -4815,7 +4819,7 @@
+            MHD_OPTION_HTTPS_MEM_KEY, key,
+            MHD_OPTION_HTTPS_MEM_CERT, cert,
+            MHD_OPTION_NOTIFY_COMPLETED, free_resources, NULL,
+-           MHD_OPTION_SOCK_ADDR, &address,
++           MHD_OPTION_SOCK_ADDR, &u_address.address,
+            MHD_OPTION_PER_IP_CONNECTION_LIMIT, 30,
+            MHD_OPTION_HTTPS_PRIORITIES, priorities,
+            MHD_OPTION_EXTERNAL_LOGGER, mhd_logger, NULL,
+@@ -4835,11 +4839,8 @@
+ static void
+ gsad_address_set_port (int port)
+ {
+-  struct sockaddr_in *gsad_address = (struct sockaddr_in *) &address;
+-  struct sockaddr_in6 *gsad_address6 = (struct sockaddr_in6 *) &address;
+-
+-  gsad_address->sin_port = htons (port);
+-  gsad_address6->sin6_port = htons (port);
++  u_address.gsad_address.sin_port = htons (port);
++  u_address.gsad_address6.sin6_port = htons (port);
+ }
+ 
+ /**
+@@ -4853,16 +4854,13 @@
+ static int
+ gsad_address_init (const char *address_str, int port)
+ {
+-  struct sockaddr_in *gsad_address = (struct sockaddr_in *) &address;
+-  struct sockaddr_in6 *gsad_address6 = (struct sockaddr_in6 *) &address;
+-
+   gsad_address_set_port (port);
+   if (address_str)
+     {
+-      if (inet_pton (AF_INET6, address_str, &gsad_address6->sin6_addr) > 0)
+-        address.ss_family = AF_INET6;
+-      else if (inet_pton (AF_INET, address_str, &gsad_address->sin_addr) > 0)
+-        address.ss_family = AF_INET;
++      if (inet_pton (AF_INET6, address_str, &u_address.gsad_address6.sin6_addr) > 0)
++        u_address.address.ss_family = AF_INET6;
++      else if (inet_pton (AF_INET, address_str, &u_address.gsad_address.sin_addr) > 0)
++        u_address.address.ss_family = AF_INET;
+       else
+         {
+           g_warning ("Failed to create GSAD address %s", address_str);
+@@ -4871,9 +4869,9 @@
+     }
+   else
+     {
+-      gsad_address->sin_addr.s_addr = INADDR_ANY;
+-      gsad_address6->sin6_addr = in6addr_any;
+-      address.ss_family = AF_INET6;
++      u_address.gsad_address.sin_addr.s_addr = INADDR_ANY;
++      u_address.gsad_address6.sin6_addr = in6addr_any;
++      u_address.address.ss_family = AF_INET6;
+     }
+   return 0;
+ }
