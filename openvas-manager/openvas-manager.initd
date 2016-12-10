@@ -1,0 +1,153 @@
+#!/bin/bash
+
+# This is an implementation of a start-script for OpenVAS Manager.
+
+# Make RedHat happy:
+#
+# chkconfig: - 92 9
+# Description: OpenVAS Manager Daemon
+#
+
+### BEGIN INIT INFO
+# Provides: openvas-manager
+# Required-Start: $local_fs $network $syslog
+# Required-Stop: $local_fs $network $syslog
+# Default-Start:
+# Default-Stop: 0 1 2 3 4 5 6
+# Short-Description: start|stop|status|restart|condrestart OpenVAS Manager
+# Description: control OpenVAS Manager
+### END INIT INFO
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+exec="/usr/sbin/openvasmd"
+prog="openvasmd"
+progname="openvas-manager"
+config=/etc/openvas/openvasmd_log.conf
+lockfile=/var/lock/subsys/openvas-manager
+
+#Values hardcoded in openvasmd
+CACERT="/etc/pki/openvas/CA/cacert.pem"
+KEYFILE="/etc/pki/openvas/private/CA/serverkey.pem"
+CERTFILE="/etc/pki/openvas/CA/servercert.pem"
+CLCERT="/etc/pki/openvas/CA/clientcert.pem"
+CLKEY="/etc/pki/openvas/private/CA/clientkey.pem"
+
+[ -e /etc/sysconfig/$progname ] && . /etc/sysconfig/$progname
+
+
+rh_status() {
+	# run checks to determine if the service is running or use generic status
+	status -p /var/run/$prog.pid $progname
+}
+
+rh_status_q() {
+	rh_status >/dev/null 2>&1
+}
+
+start() {
+
+	# Build parameters
+	[ -n "$MANAGER_LISTEN" ] && PARAMS="$PARAMS $MANAGER_LISTEN"
+	[ -n "$MANAGER_PORT" ]   && PARAMS="$PARAMS $MANAGER_PORT"
+	[ -n "$SCANNER_LISTEN" ] && PARAMS="$PARAMS $SCANNER_LISTEN"
+	[ -n "$SCANNER_PORT" ]   && PARAMS="$PARAMS $SCANNER_PORT"
+	[ -n "$MANAGER_OTP" ]    && PARAMS="$PARAMS $MANAGER_OTP"
+
+
+        if [ ! -f "$CACERT" ]; then
+                logger --tag "$progname" "CA Certificate $CACERT specified in the configuration file not found."
+                logger --tag "$progname" "Try running: openvas-mkcert"
+                exit 1
+        fi
+
+        if [ ! -f "$KEYFILE" ]; then
+                logger --tag "$progname" "Private key $KEYFILE specified in the configuration file not found."
+                logger --tag "$progname" "Try running: openvas-mkcert"
+                exit 1
+        fi
+
+        if [ ! -f "$CERTFILE" ]; then
+                logger --tag "$progname" "Public Certificate $CERTFILE specified in the configuration file not found."
+                logger --tag "$progname" "Try running: openvas-mkcert"
+                exit 1
+        fi
+
+
+	if [ ! -f "$CLCERT" ]; then
+		logger --tag "$progname" "Missing client certificate $CLCERT to connect openvas-manager to openvas-scanner."
+		logger --tag "$progname" "Try running: openvas-mkcert-client -n om -i"
+		exit 1
+	fi
+
+	if [ ! -f "$CLKEY" ]; then
+		logger --tag "$progname" "Missing client private key $CLKEY to connect openvas-manager to openvas-scanner."
+		logger --tag "$progname" "Try running: openvas-mkcert-client -n om -i"
+		exit 1
+	fi
+
+
+
+	if [ ! -f /var/lib/openvas/mgr/tasks.db  ]; then
+		logger --tag "$progname" "Missing local NVT cache database."
+		logger --tag "$progname" "Try running: openvasmd --rebuild"
+		exit 1
+	fi
+
+	echo "Starting $progname:"
+	daemon --pidfile=/var/run/$prog.pid $prog $PARAMS
+	RETVAL=$?
+	echo
+	[ $RETVAL -eq 0 ] && touch $lockfile
+	return $RETVAL
+}
+
+stop() {
+	echo -n "Stopping $progname: "
+	killproc $prog
+	RETVAL=$?
+	echo
+	[ $RETVAL -eq 0 ] && rm -f $lockfile
+	return $RETVAL
+}
+
+restart() {
+	stop
+	start
+}
+
+
+case "$1" in
+	start)
+		rh_status_q && exit 0
+		$1
+		;;
+
+	stop)
+		rh_status_q || exit 0
+		$1
+                ;;
+
+	restart)
+		$1
+		;;
+
+	condrestart|try-restart)
+		rh_status_q || exit 0
+		$1
+		;;
+
+	reload)
+		;;
+
+	status)
+		status -p /var/run/$prog.pid $progname
+                ;;
+
+	*)
+		echo "Usage: $0 {start|stop|status|restart|condrestart|reload}"
+		exit 1
+esac
+
+exit 0
