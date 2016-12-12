@@ -1,5 +1,9 @@
 #autoconf
 
-Compiled from: autoconf-2.69-23.fc26.src.rpm
+##Compiled from
+<pre>autoconf-2.69-23.fc26.src.rpm</pre>
 
-Modified: remove `Requires: emacs-filesystem' and `BuildRequires: perl-macros'
+##Modified
+<pre>
+- Remove `Requires: emacs-filesystem' and `BuildRequires: perl-macros'
+</pre>

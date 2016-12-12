@@ -1,5 +1,9 @@
 #compat-libmemcached
 
-Compiled from: libmemcached-0.31-1.1.el6.src.rpm
+##Compiled from
+<pre>libmemcached-0.31-1.1.el6.src.rpm</pre>
 
-Modified: Keep /usr/lib64/libmemcached*.so.* only
+##Modified
+<pre>
+- Keep /usr/lib64/libmemcached*.so.* only
+</pre>

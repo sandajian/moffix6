@@ -1,7 +1,15 @@
 #cmake
 
-Compiled from: cmake-3.7.0-1.fc26.src.rpm
+##Compiled from
+<pre>cmake-3.7.0-1.fc26.src.rpm</pre>
 
-Modified: cmake.spec, cmake-libarchive3.patch, BuildRequires:  libuv-devel >= 1:1.0.0
+##Modified
+<pre>
+- Added cmake-libarchive3.patch
+- BuildRequires:  libuv-devel >= 1:1.0.0
+</pre>
 
-Notes: DO NOT USE root to compile
+##Notes
+<pre>
+- DO NOT USE root to compile
+</pre>

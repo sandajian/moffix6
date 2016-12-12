@@ -1,10 +1,9 @@
 #mariadb
 
 ##Compiled from
-<pre><code>mariadb-10.1.19-3.fc26.src.rpm</code></pre>
+<pre>mariadb-10.1.19-3.fc26.src.rpm</pre>
 
 ##Modified
-
 <pre>
 - BuildRequires: openssl, openssl-devel
 - Without `tokudb'

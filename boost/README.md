@@ -1,5 +1,10 @@
 #boost
 
-Compiled from: boost-1.60.0-10.fc26.src.rpm
+##Compiled from
+<pre>boost-1.60.0-10.fc26.src.rpm</pre>
 
-Modified: BuildRequires: python34-devel, add a patch `boost-1.60.0-pool_resource.patch'
+##Modified
+<pre>
+- BuildRequires: python34-devel
+- Add a patch `boost-1.60.0-pool_resource.patch'
+</pre>

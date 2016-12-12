@@ -1,5 +1,9 @@
 #compat-gd
 
-Compiled from: gd-2.0.35-11.el6.src.rpm
+##Compiled from
+<pre>gd-2.0.35-11.el6.src.rpm</pre>
 
-Modified: Keep /usr/lib64/libgd.so.* only
+##Modified
+<pre>
+- Keep /usr/lib64/libgd.so.* only
+</pre>
