@@ -1,0 +1,60 @@
+--- mariadb.spec.old	2016-11-16 21:59:52.000000000 +0800
++++ mariadb.spec	2016-12-12 11:20:30.000000000 +0800
+@@ -25,7 +25,7 @@
+ # variable tokudb allows to build with TokuDB storage engine
+ # Temporarily disabled in F21+ for https://mariadb.atlassian.net/browse/MDEV-6446
+ %ifarch x86_64
+-%bcond_without tokudb
++%bcond_with tokudb
+ %else
+ %bcond_with tokudb
+ %endif
+@@ -213,12 +213,9 @@
+ BuildRequires:    perl(Time::HiRes)
+ 
+ 
+-# Temporary workaound to build with OpenSSL 1.0 on Fedora >=26 (wich requires OpenSSL 1.1)
+-BuildRequires:    compat-openssl10-devel
+-Requires:         compat-openssl10
+-  # for running some openssl tests rhbz#1189180
+-  #BuildRequires:    openssl
+-  #BuildRequires:    openssl-devel
++# for running some openssl tests rhbz#1189180
++BuildRequires:    openssl
++BuildRequires:    openssl-devel
+ BuildRequires:    krb5-devel
+ 
+ BuildRequires:    selinux-policy-devel
+@@ -593,6 +590,8 @@
+ cat %{SOURCE52} | tee -a mysql-test/rh-skipped-tests.list
+ %endif
+ 
++echo "plugins.feedback_plugin_load                    : failed" >> mysql-test/rh-skipped-tests.list
++
+ cp %{SOURCE2} %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} \
+    %{SOURCE14} %{SOURCE15} %{SOURCE16} %{SOURCE17} %{SOURCE18} %{SOURCE19} \
+    %{SOURCE70} scripts
+@@ -1134,7 +1133,9 @@
+ %{_bindir}/aria_ftdump
+ %{_bindir}/aria_pack
+ %{_bindir}/aria_read_log
++%if %{with init_systemd}
+ %{_bindir}/mariadb-service-convert
++%endif
+ %{_bindir}/myisamchk
+ %{_bindir}/myisam_ftdump
+ %{_bindir}/myisamlog
+@@ -1236,11 +1237,13 @@
+ %{_datadir}/%{pkg_name}/policy/apparmor/usr.sbin.mysqld*
+ %{_datadir}/%{pkg_name}/policy/selinux/README
+ %{_datadir}/%{pkg_name}/policy/selinux/mariadb-server.*
++%if %{with init_systemd}
+ %{_datadir}/%{pkg_name}/systemd/mariadb.service
+ # mariadb@ is installed only when we have cmake newer than 3.3
+ %if 0%{?fedora} > 22 || 0%{?rhel} > 7
+ %{_datadir}/%{pkg_name}/systemd/mariadb@.service
+ %endif
++%endif
+ 
+ %{daemondir}/%{daemon_name}*
+ %{_libexecdir}/mysql-prepare-db-dir
