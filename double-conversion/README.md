@@ -1,5 +1,9 @@
 #double-conversion
 
-Compiled from: double-conversion-2.0.1-7.fc24.src.rpm
+##Compiled from
+<pre>double-conversion-2.0.1-7.fc24.src.rpm</pre>
 
-Required by: hhvm
+##Required by
+<pre>
+- hhvm
+</pre>

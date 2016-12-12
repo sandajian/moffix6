@@ -1,5 +1,9 @@
 #compat-libzip
 
-Compiled from: libzip-0.9-3.1.el6.src.rpm
+##Compiled from
+<pre>libzip-0.9-3.1.el6.src.rpm</pre>
 
-Modified: Keep /usr/lib64/libzip.so.* only
+##Modified
+<pre>
+- Keep /usr/lib64/libzip.so.* only
+</pre>

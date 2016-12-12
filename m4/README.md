@@ -1,7 +1,14 @@
 #m4
 
-Compiled from: m4-1.4.17-9.fc24.src.rpm
+##Compiled from
+<pre>m4-1.4.17-9.fc24.src.rpm</pre>
 
-Required by: autoconf
+##Required by
+<pre>
+- autoconf
+</pre>
 
-Modified: Do not `autoreconf'
+##Modified
+<pre>
+- Do not `autoreconf'
+</pre>

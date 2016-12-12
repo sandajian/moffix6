@@ -1,7 +1,14 @@
 #compat-libuv
 
-Compiled from: libuv-0.10.34-1.el6.src.rpm (EPEL6)
+##Compiled from
+<pre>libuv-0.10.34-1.el6.src.rpm</pre>
 
-Required by: (backward compatibility)
+##Modified
+<pre>
+- - Keep /usr/lib64/libuv*.so.* only
+</pre>
 
-Modified: libuv.spec
+##Required by
+<pre>
+- (backward compatibility)
+</pre>

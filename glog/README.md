@@ -1,7 +1,14 @@
 #glog
 
-Compiled from: glog-0.3.3-12.fc25.src.rpm
+##Compiled from
+<pre>glog-0.3.3-12.fc25.src.rpm</pre>
 
-Required by: hhvm
+##Required by
+<pre>
+- hhvm
+</pre>
 
-Modified: glog.spec (glog-devel requires gflags-devel)
+##Modified
+<pre>
+- glog-devel requires gflags-devel
+</pre>

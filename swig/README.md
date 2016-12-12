@@ -1,5 +1,9 @@
 #swig
 
-Compiled from: swig-3.0.10-2.fc26.src.rpm
+##Compiled from
+<pre>swig-3.0.10-2.fc26.src.rpm</pre>
 
-BuildRequired by: tbb
+##BuildRequired by
+<pre>
+- tbb
+</pre>

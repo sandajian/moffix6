@@ -1,5 +1,9 @@
 #gd
 
-Compiled from: gd-2.2.3-2.fc25.src.rpm
+##Compiled from
+<pre>gd-2.2.3-2.fc25.src.rpm</pre>
 
-Modified: Remove test `freetype/bug00132'
+##Modified
+<pre>
+- Remove test `freetype/bug00132'
+</pre>

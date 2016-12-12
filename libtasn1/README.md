@@ -1,5 +1,9 @@
 #libtasn1
 
-Compiled from: libtasn1-2.14-1.fc18.src.rpm
+##Compiled from
+<pre>libtasn1-2.14-1.fc18.src.rpm</pre>
 
-Required by: gnutls
+##Required by
+<pre>
+- gnutls
+</pre>

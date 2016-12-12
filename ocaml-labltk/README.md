@@ -1,5 +1,9 @@
 #ocaml-labltk
 
-Compiled from: ocaml-labltk-8.06.0-6.fc24.src.rpm
+##Compiled from
+<pre>ocaml-labltk-8.06.0-6.fc24.src.rpm</pre>
 
-Required by: ocaml-findlib
+##Required by
+<pre>
+- ocaml-findlib
+</pre>

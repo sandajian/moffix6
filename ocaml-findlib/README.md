@@ -1,7 +1,14 @@
 #ocaml-findlib
 
-Compiled from: ocaml-findlib-1.6.2-1.fc25.src.rpm
+##Compiled from
+<pre>ocaml-findlib-1.6.2-1.fc25.src.rpm</pre>
 
-Modified: BuildRequires:  ocaml-labltk-devel
+##Modified
+<pre>
+- BuildRequires:  ocaml-labltk-devel
+</pre>
 
-Required by: hhvm
+##Required by
+<pre>
+- hhvm
+</pre>

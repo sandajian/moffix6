@@ -1,5 +1,9 @@
 #jbigkit
 
-Compiled from: jbigkit-2.1-5.fc24.src.rpm
+##Compiled from
+<pre>jbigkit-2.1-5.fc24.src.rpm</pre>
 
-Required by: ImageMagick
+##Required by
+<pre>
+- ImageMagick
+</pre>

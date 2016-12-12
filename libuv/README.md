@@ -1,5 +1,9 @@
 #libuv
 
-Compiled from: libuv-1.10.1-1.fc26.src.rpm
+##Compiled from
+<pre>libuv-1.10.1-1.fc26.src.rpm<pre>
 
-Required by: cmake-3.7.0
+##Required by
+<pre>
+- cmake-3.7.0
+</pre>

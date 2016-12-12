@@ -1,7 +1,15 @@
 #libpsl
 
-Compiled from: libpsl-0.15.0-1.fc26.src.rpm
+##Compiled from
+<pre>libpsl-0.15.0-1.fc26.src.rpm</pre>
 
-Required by: curl
+##Required by
+<pre>
+- curl
+</pre>
 
-Modified: Using python34.  Set LANG=en_US.UTF-8, solving psl2c problem.
+##Modified
+<pre>
+- Using python34
+- Set LANG=en_US.UTF-8 when building, solving psl2c problem.
+</pre>

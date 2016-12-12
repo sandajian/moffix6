@@ -1,5 +1,9 @@
 #publicsuffix-list
 
-Compiled from: publicsuffix-list-20161028-1.fc26.src.rpm
+##Compiled from
+<pre>publicsuffix-list-20161028-1.fc26.src.rpm</pre>
 
-Required by: libpsl
+##Required by
+<pre>
+- libpsl
+</pre>
