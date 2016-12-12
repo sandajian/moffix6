@@ -1,0 +1,49 @@
+--- gcc.spec.old	2015-10-13 02:25:22.000000000 +0800
++++ gcc.spec	2015-12-06 19:57:13.000000000 +0800
+@@ -79,8 +79,8 @@
+ %global multilib_32_arch i686
+ %endif
+ Summary: GCC version 5
+-Name: %{?scl_prefix}gcc
+-#Name: %{?scl_prefix}gcc%{!?scl:5}
++#Name: %{?scl_prefix}gcc
++Name: %{?scl_prefix}gcc%{!?scl:5}
+ Version: %{gcc_version}
+ Release: %{gcc_release}.2%{?dist}
+ # libgcc, libgfortran, libmudflap, libgomp, libstdc++ and crtstuff have
+@@ -106,7 +106,8 @@
+ # Need binutils which support --build-id >= 2.17.50.0.17-3
+ # Need binutils which support %gnu_unique_object >= 2.19.51.0.14
+ # Need binutils which support .cfi_sections >= 2.19.51.0.14-33
+-BuildRequires: binutils >= 2.19.51.0.14-33
++# Need binutils which support Intel MPX >= 2.23.52.0.1-12
++BuildRequires: binutils >= 2.23.52.0.1-12
+ # While gcc doesn't include statically linked binaries, during testing
+ # -static is used several times.
+ BuildRequires: glibc-static
+@@ -156,6 +157,7 @@
+ # Need binutils which support --build-id >= 2.17.50.0.17-3
+ # Need binutils which support %gnu_unique_object >= 2.19.51.0.14
+ # Need binutils which support .cfi_sections >= 2.19.51.0.14-33
++# Need binutils which support Intel MPX >= 2.23.52.0.1-12
+ %if 0%{?scl:1}
+ %if 0%{?rhel} >= 7
+ Requires: binutils >= 2.22.52.0.1
+@@ -163,7 +165,7 @@
+ Requires: %{?scl_prefix}binutils >= 2.22.52.0.1
+ %endif
+ %else
+-Requires: binutils >= 2.19.51.0.14-33
++Requires: binutils >= 2.23.52.0.1-12
+ %endif
+ # Make sure gdb will understand DW_FORM_strp
+ Conflicts: gdb < 5.1-2
+@@ -1674,7 +1676,7 @@
+ cd ..
+ 
+ %if 0%{!?scl:1}
+-for i in %{buildroot}%{_prefix}/bin/{*gcc,*++,gcov,gfortran,gcc-ar,gcc-nm,gcc-ranlib}; do
++for i in %{buildroot}%{_prefix}/bin/{*gcc,*++,gcov*,gfortran,gcc-ar,gcc-nm,gcc-ranlib}; do
+   mv -f $i ${i}5
+ done
+ %endif
