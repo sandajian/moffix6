@@ -1,0 +1,19 @@
+--- openvas-gsa.spec.old	2016-09-06 06:01:05.000000000 +0800
++++ openvas-gsa.spec	2016-12-06 09:28:44.000000000 +0800
+@@ -35,6 +35,8 @@
+ # patch MHD_create_response_from_data => MHD_create_response_from_buffer
+ Patch3:         %{name}-libmicrohttpd.patch
+ 
++# patch src/gsad.c to avoid strict-aliasing errors when compiled with GCC 4.4.7
++Patch4:         %{name}-gcc44-strict-aliasing.patch
+ 
+ BuildRequires:  openvas-libraries-devel >= 7.0
+ BuildRequires:  cmake >= 2.6.0
+@@ -74,6 +76,7 @@
+ %patch1 -p1 -b .pki
+ %patch2 -p1 -b .glib
+ %patch3 -p1 -b .libmicrohttpd
++%patch4 -p1 -b .strict-aliasing
+ #Fix encoding issues
+ iconv -f Windows-1250 -t utf-8 < CHANGES > CHANGES.utf8
+ touch -r CHANGES CHANGES.utf8
