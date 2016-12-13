@@ -18,9 +18,11 @@ In order to use this repository, your system should meet:
 1. CentOS 6.x x86_64
 2. Epel 6 x86_64
 
-Download repo file from:
+Download moffix-release rpm from:
 
-	https://copr.fedorainfracloud.org/coprs/chenxy/moffix6/repo/epel-6/chenxy-moffix6-epel-6.repo
+	http://repos.moffix.com/moffix/6/x86_64/moffix-release-6-1.noarch.rpm
+
+Install this rpm, and you will use `yum' to install packages from moffix repository.
 
 If you want to recompile packages, you should following a special sequence of building:
 
