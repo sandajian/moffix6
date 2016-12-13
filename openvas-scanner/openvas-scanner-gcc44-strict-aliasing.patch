@@ -1,0 +1,39 @@
+--- openvas-scanner-5.0.7/src/openvassd.c.old	2016-08-25 20:07:28.000000000 +0800
++++ openvas-scanner-5.0.7/src/openvassd.c	2016-12-06 09:55:05.000000000 +0800
+@@ -413,25 +413,27 @@
+ {
+   char asciiaddr[INET6_ADDRSTRLEN];
+   int opt = 1, soc2 = -1, nice_retval, soc;
++union {
+   struct sockaddr_storage addr;
++  struct sockaddr_in saddr;
++  struct sockaddr_in6 s6addr;
++} u_addr;
+   socklen_t len;
+ 
+   soc = arg_get_value_int (globals, "global_socket");
+-  len = sizeof (addr);
+-  getpeername (soc, (struct sockaddr *) &addr, &len);
+-  if (addr.ss_family == AF_INET)
++  len = sizeof (u_addr.addr);
++  getpeername (soc, (struct sockaddr *) &u_addr.addr, &len);
++  if (u_addr.addr.ss_family == AF_INET)
+     {
+-      struct sockaddr_in *saddr = (struct sockaddr_in *) &addr;
+-      inet_ntop (AF_INET,  &saddr->sin_addr, asciiaddr, sizeof(asciiaddr));
++      inet_ntop (AF_INET,  &u_addr.saddr.sin_addr, asciiaddr, sizeof(asciiaddr));
+     }
+   else
+     {
+-      struct sockaddr_in6 *s6addr = (struct sockaddr_in6 *) &addr;
+-      if (IN6_IS_ADDR_V4MAPPED (&s6addr->sin6_addr))
+-        inet_ntop (AF_INET, &s6addr->sin6_addr.s6_addr[12],
++      if (IN6_IS_ADDR_V4MAPPED (&u_addr.s6addr.sin6_addr))
++        inet_ntop (AF_INET, &u_addr.s6addr.sin6_addr.s6_addr[12],
+                    asciiaddr, sizeof (asciiaddr));
+       else
+-        inet_ntop (AF_INET6, &s6addr->sin6_addr, asciiaddr, sizeof (asciiaddr));
++        inet_ntop (AF_INET6, &u_addr.s6addr.sin6_addr, asciiaddr, sizeof (asciiaddr));
+     }
+   proctitle_set ("openvassd: Serving %s", asciiaddr);
+ 
