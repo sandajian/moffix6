@@ -20,7 +20,7 @@ In order to use this repository, your system should meet:
 
 Download moffix-release rpm from:
 
-	[http://repos.moffix.com/moffix/6/x86_64/moffix-release-6-1.noarch.rpm](http://repos.moffix.com/moffix/6/x86_64/moffix-release-6-1.noarch.rpm)
+	http://repos.moffix.com/moffix/6/x86_64/moffix-release-6-1.noarch.rpm
 
 Install this rpm, and you will use `yum' to install packages from moffix repository.
 
