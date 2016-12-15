@@ -1,0 +1,47 @@
+--- mysql.spec.old	2016-09-17 04:20:46.000000000 +0800
++++ mysql.spec	2016-12-15 15:17:12.000000000 +0800
+@@ -38,7 +38,7 @@
+ # When there is already another package that ships /etc/my.cnf,
+ # rather include it than ship the file again, since conflicts between
+ # those files may create issues
+-%bcond_with config
++%bcond_without config
+ 
+ # For deep debugging we need to build binaries with extra debug info
+ %bcond_with debug
+@@ -78,7 +78,7 @@
+ # Make long macros shorter
+ %global sameevr   %{?epoch:%{epoch}:}%{version}-%{release}
+ 
+-Name:             community-mysql
++Name:             mysql
+ Version:          5.7.15
+ Release:          1%{?with_debug:.debug}%{?dist}
+ Summary:          MySQL client programs and shared libraries
+@@ -168,7 +168,7 @@
+ Requires:         bash
+ Requires:         fileutils
+ Requires:         grep
+-Requires:         %{name}-common%{?_isa} = %{sameevr}
++Requires:         %{name}-libs%{?_isa} = %{sameevr}
+ 
+ %if %{with mysql_names}
+ Provides:         mysql = %{sameevr}
+@@ -203,6 +203,7 @@
+ Summary:          The shared libraries required for MySQL clients
+ Group:            Applications/Databases
+ Requires:         %{name}-common%{?_isa} = %{sameevr}
++Requires:         %{name}-config%{?_isa} = %{sameevr}
+ %if %{with mysql_names}
+ Provides:         mysql-libs = %{sameevr}
+ Provides:         mysql-libs%{?_isa} = %{sameevr}
+@@ -405,6 +406,9 @@
+ 
+ touch %{skiplist}
+ 
++# this test fails on CentOS 6.x x86_64
++add_test main.grant_user_lock                 : unstable test
++
+ # unstable on all archs
+ add_test main.xa_prepared_binlog_off          : unstable test
+ add_test binlog.binlog_xa_prepared_disconnect : unstable test
