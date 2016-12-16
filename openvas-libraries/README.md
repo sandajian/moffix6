@@ -1,5 +1,10 @@
 #openvas-libraries
 
-Compiled from: openvas-libraries-8.0.8-2.fc26.src.rpm
+##Compiled from
+<pre>openvas-libraries-8.0.8-2.fc26.src.rpm</pre>
 
-Requires: glib2 >= 2.30
+##Requires
+<pre>
+- glib2 >= 2.30
+- gnutls-devel >= 2.12.10
+</pre>
