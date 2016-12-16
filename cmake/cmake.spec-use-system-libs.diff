@@ -1,0 +1,35 @@
+--- cmake.spec.old	2016-11-12 22:39:55.000000000 +0800
++++ cmake.spec	2016-12-09 06:31:03.000000000 +0800
+@@ -70,10 +70,10 @@
+ # Patch for renaming on EPEL
+ %if 0%{?name_suffix:1}
+ Patch1000:      %{name}-rename.patch
++%endif
+ %if 0%{?rhel} && 0%{?rhel} <= 6
+ Patch1001:      %{name}-libarchive3.patch
+ %endif
+-%endif
+ 
+ BuildRequires:  gcc-gfortran
+ BuildRequires:  ncurses-devel, libX11-devel
+@@ -87,7 +87,7 @@
+ %else
+ BuildRequires:  libarchive3-devel
+ %endif
+-BuildRequires:  libuv-devel
++BuildRequires:  libuv-devel >= 1:1.0.0
+ BuildRequires:  xz-devel
+ BuildRequires:  zlib-devel
+ BuildRequires:  emacs
+@@ -170,10 +170,10 @@
+ # Apply renaming on EPEL before all other patches
+ %if 0%{?name_suffix:1}
+ %patch1000 -p1
++%endif
+ %if 0%{?rhel} && 0%{?rhel} <= 6
+ %patch1001 -p1
+ %endif
+-%endif
+ 
+ # We cannot use backups with patches to Modules as they end up being installed
+ %patch2 -p1

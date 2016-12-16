@@ -5,6 +5,11 @@
 
 ##Modified
 <pre>
+- with bootstrap (do not use system-libs to avoid updating libuv)
+</pre>
+
+##Modified (use system-libs)
+<pre>
 - Added cmake-libarchive3.patch
 - BuildRequires:  libuv-devel >= 1:1.0.0
 </pre>

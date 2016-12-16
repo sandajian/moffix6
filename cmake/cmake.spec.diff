@@ -1,35 +1,39 @@
 --- cmake.spec.old	2016-11-12 22:39:55.000000000 +0800
-+++ cmake.spec	2016-12-09 06:31:03.000000000 +0800
-@@ -70,10 +70,10 @@
- # Patch for renaming on EPEL
- %if 0%{?name_suffix:1}
- Patch1000:      %{name}-rename.patch
-+%endif
- %if 0%{?rhel} && 0%{?rhel} <= 6
- Patch1001:      %{name}-libarchive3.patch
- %endif
--%endif
++++ cmake.spec	2016-12-16 14:38:20.000000000 +0800
+@@ -1,6 +1,6 @@
+ # Set to bcond_without or use --with bootstrap if bootstrapping a new release
+ # or architecture
+-%bcond_with bootstrap
++%bcond_without bootstrap
+ 
+ # Set to bcond_with or use --without gui to disable qt4 gui build
+ %bcond_without gui
+@@ -77,19 +77,19 @@
  
  BuildRequires:  gcc-gfortran
  BuildRequires:  ncurses-devel, libX11-devel
-@@ -87,7 +87,7 @@
+-BuildRequires:  bzip2-devel
+-BuildRequires:  curl-devel
+-BuildRequires:  expat-devel
+-BuildRequires:  jsoncpp-devel
++#BuildRequires:  bzip2-devel
++#BuildRequires:  curl-devel
++#BuildRequires:  expat-devel
++#BuildRequires:  jsoncpp-devel
+ %if 0%{?fedora} || 0%{?rhel} >= 7
+-BuildRequires:  libarchive-devel
++#BuildRequires:  libarchive-devel
+ BuildRequires:  /usr/bin/sphinx-build
  %else
- BuildRequires:  libarchive3-devel
+-BuildRequires:  libarchive3-devel
++#BuildRequires:  libarchive3-devel
  %endif
 -BuildRequires:  libuv-devel
-+BuildRequires:  libuv-devel >= 1:1.0.0
- BuildRequires:  xz-devel
- BuildRequires:  zlib-devel
+-BuildRequires:  xz-devel
+-BuildRequires:  zlib-devel
++#BuildRequires:  libuv-devel
++#BuildRequires:  xz-devel
++#BuildRequires:  zlib-devel
  BuildRequires:  emacs
-@@ -170,10 +170,10 @@
- # Apply renaming on EPEL before all other patches
- %if 0%{?name_suffix:1}
- %patch1000 -p1
-+%endif
- %if 0%{?rhel} && 0%{?rhel} <= 6
- %patch1001 -p1
- %endif
--%endif
- 
- # We cannot use backups with patches to Modules as they end up being installed
- %patch2 -p1
+ %if %{with python3}
+ %{!?python3_pkgversion: %global python3_pkgversion 3}
