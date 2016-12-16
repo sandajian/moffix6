@@ -7,3 +7,8 @@
 <pre>
 - glog
 </pre>
+
+##Notes
+<pre>
+- A new version of cmake is needed
+</pre>
