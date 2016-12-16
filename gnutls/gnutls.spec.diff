@@ -1,5 +1,5 @@
 --- gnutls.spec.old	2013-05-31 23:16:38.000000000 +0800
-+++ gnutls.spec	2016-12-16 15:40:45.000000000 +0800
++++ gnutls.spec	2016-12-16 16:23:28.000000000 +0800
 @@ -29,6 +29,7 @@
  
  BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -8,3 +8,12 @@
  # Wildcard bundling exception https://fedorahosted.org/fpc/ticket/174
  Provides: bundled(gnulib) = 20120301
  
+@@ -106,7 +107,7 @@
+ 
+ %build
+ 
+-export LDFLAGS="-Wl,--no-add-needed"
++#export LDFLAGS="-Wl,--no-add-needed"
+ 
+ %configure --with-libtasn1-prefix=%{_prefix} \
+            --with-included-libcfg \
