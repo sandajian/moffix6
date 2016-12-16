@@ -1,0 +1,10 @@
+--- gnutls.spec.old	2013-05-31 23:16:38.000000000 +0800
++++ gnutls.spec	2016-12-16 15:40:45.000000000 +0800
+@@ -29,6 +29,7 @@
+ 
+ BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+ Requires: libgcrypt >= 1.2.2
++Requires: libtasn1 >= 2.14
+ # Wildcard bundling exception https://fedorahosted.org/fpc/ticket/174
+ Provides: bundled(gnulib) = 20120301
+ 
