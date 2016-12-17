@@ -1,0 +1,10 @@
+--- gettext.spec.old	2016-08-10 16:32:54.000000000 +0800
++++ gettext.spec	2016-12-17 15:05:23.000000000 +0800
+@@ -55,7 +55,6 @@
+ Requires(post): info
+ Requires(preun): info
+ # for F17 UsrMove
+-Conflicts: filesystem < 3
+ Provides: /bin/gettext
+ # exception for bundled gnulib copylib
+ Provides: bundled(gnulib)
