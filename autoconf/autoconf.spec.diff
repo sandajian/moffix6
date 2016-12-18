@@ -1,5 +1,5 @@
 --- autoconf.spec.old	2016-07-29 15:09:15.000000000 +0800
-+++ autoconf.spec	2016-12-18 11:26:40.000000000 +0800
++++ autoconf.spec	2016-12-18 15:07:11.000000000 +0800
 @@ -9,6 +9,7 @@
  URL:        http://www.gnu.org/software/autoconf/
  
@@ -8,15 +8,17 @@
  
  BuildArch:  noarch
  
-@@ -19,11 +20,9 @@
+@@ -19,11 +20,11 @@
  # m4 >= 1.4.6 is required, >= 1.4.14 is recommended:
  BuildRequires:      m4 >= 1.4.14
  Requires:           m4 >= 1.4.14
 -Requires:           emacs-filesystem
++Requires:           emacs-common
  BuildRequires:      emacs
  # the filtering macros are currently in /etc/rpm/macros.perl:
  BuildRequires:      perl-generators
 -BuildRequires:      perl-macros
++BuildRequires:      perl-devel
  BuildRequires:      perl(Data::Dumper)
  # from f19, Text::ParseWords is not the part of 'perl' package
  BuildRequires:      perl(Text::ParseWords)

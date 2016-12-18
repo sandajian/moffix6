@@ -5,7 +5,7 @@
 
 ##Modified
 <pre>
-- Remove 'BuildRequires: perl-macros'
+- 'BuildRequires: perl-macros' -> 'BuildRequires: perl-devel'
 - Add a blank line after '%autosetup -p1'
 - Do not 'autoreconf -iv', use './bootstrap.sh' instead.
 </pre>
