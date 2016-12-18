@@ -1,0 +1,34 @@
+From 251d13ff2491e470f16569a9bb31123558ae84b2 Mon Sep 17 00:00:00 2001
+From: Eric Blake <eblake@redhat.com>
+Date: Wed, 1 Jan 2014 16:46:48 -0700
+Subject: tests: don't let config.site affect testsuite
+
+Test 236 "configure directories" failed for me on 64-bit Fedora 20;
+it boiled down to the system's config.site causing libdir to
+default to /usr/lib64 instead of the autoconf default of /usr/lib.
+
+* tests/base.at (configure directories): Neutralize any preinstalled
+config.site from the system.
+
+Signed-off-by: Eric Blake <eblake@redhat.com>
+---
+ tests/base.at | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/tests/base.at b/tests/base.at
+index 0a9fff6..33a7cfa 100644
+--- a/tests/base.at
++++ b/tests/base.at
+@@ -682,6 +682,9 @@ AT_CLEANUP
+ 
+ AT_SETUP([configure directories])
+ 
++CONFIG_SITE=/dev/null
++export CONFIG_SITE
++
+ AT_DATA([foo.in],
+ [[prefix=@prefix@
+ exec_prefix=@exec_prefix@
+-- 
+cgit v1.0
+

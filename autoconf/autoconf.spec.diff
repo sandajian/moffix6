@@ -1,14 +1,15 @@
 --- autoconf.spec.old	2016-07-29 15:09:15.000000000 +0800
-+++ autoconf.spec	2016-12-18 15:07:11.000000000 +0800
-@@ -9,6 +9,7 @@
++++ autoconf.spec	2016-12-18 17:32:28.000000000 +0800
+@@ -9,6 +9,8 @@
  URL:        http://www.gnu.org/software/autoconf/
  
  Patch1:     autoconf-2.69-perl-5.22-autoscan.patch
-+Patch2:     autoconf-2.69-libtool-test.patch
++Patch2:     autoconf-2.69-test-configure-directories.patch
++Patch3:     autoconf-2.69-test-libtool.patch
  
  BuildArch:  noarch
  
-@@ -19,11 +20,11 @@
+@@ -19,11 +21,11 @@
  # m4 >= 1.4.6 is required, >= 1.4.14 is recommended:
  BuildRequires:      m4 >= 1.4.14
  Requires:           m4 >= 1.4.14
