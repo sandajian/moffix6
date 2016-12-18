@@ -5,5 +5,5 @@
 
 ##Modified
 <pre>
-- Added a patch to fix 'mpz/t-scan' test fail
+- Added a patch to fix an ancient bug about 'mpz/t-scan' test
 </pre>
