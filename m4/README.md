@@ -10,5 +10,10 @@
 
 ##Modified
 <pre>
-- Do not `autoreconf'
+- Do not 'autoreconf' (automake >= 1.11.6 is required)
+</pre>
+
+##Notes
+<pre>
+- After automake is updated, we may recompile m4 without modification.
 </pre>
