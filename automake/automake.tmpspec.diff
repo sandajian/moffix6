@@ -1,5 +1,5 @@
 --- automake.spec.old	2016-10-13 23:53:44.000000000 +0800
-+++ automake.spec	2016-12-18 15:00:16.000000000 +0800
++++ automake.spec	2016-12-18 14:57:49.000000000 +0800
 @@ -52,7 +52,7 @@
  
  # the filtering macros are currently in /etc/rpm/macros.perl:
@@ -9,15 +9,18 @@
  
  # This is needed to allow 'help2man' to run 'automake --help' during build.
  BuildRequires:   perl(Thread::Queue)
-@@ -71,6 +71,7 @@
+@@ -71,7 +71,9 @@
  
  %prep
  %autosetup -p1
+-autoreconf -iv
 +
- autoreconf -iv
++#autoreconf -iv
++./bootstrap.sh
  
  file=`find -name config.sub | head -1`
-@@ -91,6 +92,7 @@
+ cp %{SOURCE2} $file
+@@ -91,6 +93,7 @@
  
  %install
  make install DESTDIR=%{buildroot}
@@ -25,7 +28,7 @@
  
  %check
  # %%global TESTS_FLAGS t/preproc-errmsg t/preproc-basics
-@@ -109,7 +111,7 @@
+@@ -109,7 +112,7 @@
  
  %files
  %doc AUTHORS README THANKS NEWS README.aclocal README.multilib COPYING*
