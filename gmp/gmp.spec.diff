@@ -1,0 +1,18 @@
+--- gmp.spec.old	2012-06-26 17:40:21.000000000 +0800
++++ gmp.spec	2016-12-18 09:08:54.000000000 +0800
+@@ -13,6 +13,7 @@
+ Source2: gmp.h
+ Source3: gmp-mparam.h
+ Patch0: gmp-4.0.1-s390.patch
++Patch1: gmp-4.3.2-t-scan.patch
+ License: LGPLv3+
+ Group: System Environment/Libraries
+ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+@@ -57,6 +58,7 @@
+ %prep
+ %setup -q
+ %patch0 -p1 -b .s390
++%patch1 -p1 -b .t-scan
+ 
+ %build
+ autoreconf -if
