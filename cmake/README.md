@@ -1,11 +1,12 @@
 #cmake
 
 ##Compiled from
-<pre>cmake-3.7.0-1.fc26.src.rpm</pre>
+<pre>cmake-3.7.1-1.fc26.src.rpm</pre>
 
 ##Modified
 <pre>
 - with bootstrap (do not use system-libs to avoid updating libuv)
+- Disable test 'Server', it needs python >= 2.7
 </pre>
 
 ##Modified (use system-libs)

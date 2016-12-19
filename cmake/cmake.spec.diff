@@ -1,5 +1,5 @@
---- cmake.spec.old	2016-11-12 22:39:55.000000000 +0800
-+++ cmake.spec	2016-12-16 14:38:20.000000000 +0800
+--- cmake.spec.old	2016-12-01 12:51:46.000000000 +0800
++++ cmake.spec	2016-12-19 09:55:26.000000000 +0800
 @@ -1,6 +1,6 @@
  # Set to bcond_without or use --with bootstrap if bootstrapping a new release
  # or architecture
@@ -37,3 +37,12 @@
  BuildRequires:  emacs
  %if %{with python3}
  %{!?python3_pkgversion: %global python3_pkgversion 3}
+@@ -308,7 +308,7 @@
+ %endif
+ pushd build
+ #CMake.FileDownload, and CTestTestUpload require internet access
+-bin/ctest%{?name_suffix} -V -E 'CMake.FileDownload|CTestTestUpload' %{?_smp_mflags}
++bin/ctest%{?name_suffix} -V -E 'CMake.FileDownload|CTestTestUpload|Server' %{?_smp_mflags}
+ popd
+ %if 0%{?rhel} && 0%{?rhel} <= 6
+ mv -f Modules/FindLibArchive.disabled Modules/FindLibArchive.cmake
