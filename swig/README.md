@@ -7,3 +7,8 @@
 <pre>
 - tbb
 </pre>
+
+##Notes
+<pre>
+- Successfully compiled using gcc-4.4.7.  Test failed using gcc-6.2.1
+</pre>
