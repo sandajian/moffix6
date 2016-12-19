@@ -7,3 +7,8 @@
 <pre>
 - boost -> boost141 related issues
 </pre>
+
+##Notes
+<pre>
+- Use gcc-4.4.7 to compile.  gcc-6.2.1 gives out errors.
+</pre>
