@@ -1,34 +1,11 @@
---- tbb.spec.old	2016-11-03 09:57:14.000000000 +0800
-+++ tbb.spec	2016-12-10 05:56:36.000000000 +0800
-@@ -40,9 +40,12 @@
- # Related: https://bugzilla.redhat.com/show_bug.cgi?id=1379632
- Patch4: tbb-2017-64bit.patch
+--- tbb.spec.old	2016-12-03 01:42:27.000000000 +0800
++++ tbb.spec	2016-12-19 15:06:59.000000000 +0800
+@@ -37,7 +37,7 @@
  
--BuildRequires: gcc-c++
-+# Use gcc49, g++49
-+Patch9: tbb2017_20161004oss-gcc49.patch
-+
-+BuildRequires: gcc49-c++
+ BuildRequires: gcc-c++
  BuildRequires: python2-devel
 -BuildRequires: swig
 +BuildRequires: swig >= 3.0.6
  
  %if 0%{?with_python3}
  BuildRequires: python3-devel
-@@ -104,6 +107,7 @@
- %patch2 -p1
- %patch3 -p1
- %patch4 -p1
-+%patch9 -p1
- 
- # For repeatable builds, don't query the hostname or architecture
- sed -i 's/`hostname -s`" ("`uname -m`/fedorabuild" ("%{_arch}/' \
-@@ -130,6 +134,8 @@
-     touch -r ${file} ${base}
- done
- 
-+export CC=gcc49 CXX=g++49
-+
- # Build for python 2
- . build/obj_release/tbbvars.sh
- pushd python

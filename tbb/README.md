@@ -5,6 +5,5 @@
 
 ##Modified
 <pre>
-- Use gcc49, g++49
 - BuildRequires: swig >= 3.0.6
 </pre>
