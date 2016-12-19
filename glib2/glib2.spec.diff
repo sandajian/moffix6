@@ -1,0 +1,19 @@
+--- glib2.spec.old	2016-08-18 13:37:00.000000000 +0800
++++ glib2.spec	2016-12-19 17:38:25.000000000 +0800
+@@ -14,7 +14,6 @@
+ BuildRequires: gettext
+ BuildRequires: libattr-devel
+ BuildRequires: libselinux-devel
+-BuildRequires: pkgconfig(libpcre)
+ # for sys/inotify.h
+ BuildRequires: glibc-devel
+ BuildRequires: zlib-devel
+@@ -88,7 +87,7 @@
+ (if ! test -x configure; then NOCONFIGURE=1 ./autogen.sh; CONFIGFLAGS=--enable-gtk-doc; fi;
+  %configure $CONFIGFLAGS \
+            --with-python=/usr/bin/python \
+-           --with-pcre=system \
++           --with-pcre=internal \
+            --enable-systemtap \
+            --enable-static \
+            --enable-installed-tests

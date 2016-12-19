@@ -1,7 +1,12 @@
 #glib2
 
 ##Compiled from
-<pre>glib2-2.46.2-2.fc23.src.rpm</pre>
+<pre>glib2-2.48.2-1.fc24.src.rpm</pre>
+
+##Modified
+<pre>
+- Use internal pcre
+</pre>
 
 ##Notes
 <pre>
