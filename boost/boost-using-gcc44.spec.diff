@@ -1,0 +1,29 @@
+--- boost.spec.old	2016-10-22 04:59:39.000000000 +0800
++++ boost.spec	2016-12-09 22:19:03.000000000 +0800
+@@ -89,7 +89,7 @@
+ BuildRequires: zlib-devel
+ BuildRequires: python-devel
+ %if %{with python3}
+-BuildRequires: python3-devel
++BuildRequires: python34-devel
+ %endif
+ BuildRequires: libicu-devel
+ %if %{with quadmath}
+@@ -141,6 +141,9 @@
+ # https://github.com/boostorg/python/pull/59/files
+ Patch84: boost-1.60-python-regptr.patch
+ 
++# https://svn.boost.org/trac/boost/ticket/11856
++Patch99: boost-1.60.0-pool_resource.patch
++
+ %bcond_with tests
+ %bcond_with docs_generated
+ 
+@@ -654,6 +657,7 @@
+ %patch82 -p0
+ %patch83 -p2
+ %patch84 -p2
++%patch99 -p1
+ 
+ # At least python2_version needs to be a macro so that it's visible in
+ # %%install as well.
