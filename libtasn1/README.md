@@ -7,3 +7,8 @@
 <pre>
 - gnutls
 </pre>
+
+##Notes
+<pre>
+- libtasn1-2.14-1 is the latest compatible version that provides libtasn1.so.3
+</pre>
