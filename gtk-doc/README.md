@@ -12,3 +12,8 @@
 <pre>
 - glib2
 </pre>
+
+##Notes
+<pre>
+- gtk-doc-1.25 requires: perl >= 5.18.0
+</pre>

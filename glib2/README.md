@@ -10,6 +10,7 @@
 
 ##Notes
 <pre>
+- glib2-2.48.2-1 is the latest version that does not require libmount-devel
 - gtk-doc >= 1.20 is recommended:
 	configure:27514: WARNING:
 	  You will not be able to create source packages with 'make dist'
