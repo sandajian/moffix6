@@ -1,5 +1,5 @@
 --- autoconf.spec.old	2016-07-29 15:09:15.000000000 +0800
-+++ autoconf.spec	2016-12-18 17:32:28.000000000 +0800
++++ autoconf.spec	2016-12-21 13:50:08.000000000 +0800
 @@ -9,6 +9,8 @@
  URL:        http://www.gnu.org/software/autoconf/
  
@@ -9,12 +9,11 @@
  
  BuildArch:  noarch
  
-@@ -19,11 +21,11 @@
+@@ -19,11 +21,10 @@
  # m4 >= 1.4.6 is required, >= 1.4.14 is recommended:
  BuildRequires:      m4 >= 1.4.14
  Requires:           m4 >= 1.4.14
 -Requires:           emacs-filesystem
-+Requires:           emacs-common
  BuildRequires:      emacs
  # the filtering macros are currently in /etc/rpm/macros.perl:
  BuildRequires:      perl-generators
