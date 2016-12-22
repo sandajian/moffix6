@@ -1,0 +1,12 @@
+--- openvas-gsa.spec.old	2016-09-06 06:01:05.000000000 +0800
++++ openvas-gsa.spec	2016-12-22 17:30:49.000000000 +0800
+@@ -48,8 +48,7 @@
+ BuildRequires:  gettext
+ 
+ Requires:       logrotate
+-Requires:       texlive-changepage
+-Requires:       texlive-comment
++Requires:       texlive-latex
+ 
+ %if 0%{?rhel} >= 7 || 0%{?fedora} > 15
+ BuildRequires:          systemd

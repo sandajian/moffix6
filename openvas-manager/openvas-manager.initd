@@ -57,41 +57,41 @@ start() {
 
 
         if [ ! -f "$CACERT" ]; then
-                logger --tag "$progname" "CA Certificate $CACERT specified in the configuration file not found."
-                logger --tag "$progname" "Try running: openvas-mkcert"
+                logger -t "$progname" "CA Certificate $CACERT specified in the configuration file not found."
+                logger -t "$progname" "Try running: openvas-mkcert"
                 exit 1
         fi
 
         if [ ! -f "$KEYFILE" ]; then
-                logger --tag "$progname" "Private key $KEYFILE specified in the configuration file not found."
-                logger --tag "$progname" "Try running: openvas-mkcert"
+                logger -t "$progname" "Private key $KEYFILE specified in the configuration file not found."
+                logger -t "$progname" "Try running: openvas-mkcert"
                 exit 1
         fi
 
         if [ ! -f "$CERTFILE" ]; then
-                logger --tag "$progname" "Public Certificate $CERTFILE specified in the configuration file not found."
-                logger --tag "$progname" "Try running: openvas-mkcert"
+                logger -t "$progname" "Public Certificate $CERTFILE specified in the configuration file not found."
+                logger -t "$progname" "Try running: openvas-mkcert"
                 exit 1
         fi
 
 
 	if [ ! -f "$CLCERT" ]; then
-		logger --tag "$progname" "Missing client certificate $CLCERT to connect openvas-manager to openvas-scanner."
-		logger --tag "$progname" "Try running: openvas-mkcert-client -n om -i"
+		logger -t "$progname" "Missing client certificate $CLCERT to connect openvas-manager to openvas-scanner."
+		logger -t "$progname" "Try running: openvas-mkcert-client -n om -i"
 		exit 1
 	fi
 
 	if [ ! -f "$CLKEY" ]; then
-		logger --tag "$progname" "Missing client private key $CLKEY to connect openvas-manager to openvas-scanner."
-		logger --tag "$progname" "Try running: openvas-mkcert-client -n om -i"
+		logger -t "$progname" "Missing client private key $CLKEY to connect openvas-manager to openvas-scanner."
+		logger -t "$progname" "Try running: openvas-mkcert-client -n om -i"
 		exit 1
 	fi
 
 
 
 	if [ ! -f /var/lib/openvas/mgr/tasks.db  ]; then
-		logger --tag "$progname" "Missing local NVT cache database."
-		logger --tag "$progname" "Try running: openvasmd --rebuild"
+		logger -t "$progname" "Missing local NVT cache database."
+		logger -t "$progname" "Try running: openvasmd --rebuild"
 		exit 1
 	fi
 

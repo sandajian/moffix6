@@ -1,5 +1,5 @@
 --- openvas-libraries.spec.old	2016-09-05 19:40:17.000000000 +0800
-+++ openvas-libraries.spec	2016-12-22 13:07:49.000000000 +0800
++++ openvas-libraries.spec	2016-12-22 17:24:43.000000000 +0800
 @@ -16,10 +16,14 @@
  
  #Fix fo newer version of libssh
