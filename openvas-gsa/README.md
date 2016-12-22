@@ -6,7 +6,7 @@
 ##Modified
 <pre>
 - Added openvas-gsa.initd from Fedora git repository
-- Removed Requires: texlive-changepage, texlive-comment, added Requires: texlive-latex
+- Removed Requires: texlive-changepage, texlive-comment, added Requires: texlive-texmf-latex
 - Patched src/gsad.c to avoid strict-aliasing errors when compiled with GCC 4.4.7
 </pre>
 
