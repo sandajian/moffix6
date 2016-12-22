@@ -1,0 +1,11 @@
+--- trunk/openvas-libraries/nasl/nasl_builtin_synscan.c	2016/02/11 13:58:07	24357
++++ trunk/openvas-libraries/nasl/nasl_builtin_synscan.c	2016/05/13 07:47:58	25293
+@@ -803,7 +803,7 @@
+   if (islocalhost (dst))
+     return NULL;
+ 
+-    rtt = htonl (1 << 28);
++  rtt = htonl (1 << 28);
+ 
+ #ifdef DEBUG
+   printf ("RTT = 0x%.8x\n", ntohl (rtt));

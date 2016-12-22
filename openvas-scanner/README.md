@@ -5,5 +5,11 @@
 
 ##Modified
 <pre>
-- Add a patch to avoid strict-aliasing errors when compiled with GCC 4.4.7
+- Added openvas-scanner.initd from Fedora git repository
+- Added a patch to avoid strict-aliasing errors when compiled with GCC 4.4.7
+</pre>
+
+##Notes
+<pre>
+- !!! Use 'rpmbuild -ba ...' to include openvas-scanner.initd in .src.rpm
 </pre>
