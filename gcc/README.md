@@ -9,6 +9,7 @@
 - BuildRequires: hostname -> /bin/hostname
 - BuildRequires: python3-devel -> python34-devel
 - Remove: Requires: filesystem >= 3
+- /usr/lib/cpp -> /lib/cpp: 'rpcgen' cannot find any C preprocessor (cpp)
 </pre>
 
 ##Notes

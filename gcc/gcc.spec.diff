@@ -1,5 +1,5 @@
 --- gcc.spec.old	2016-12-22 00:14:20.000000000 +0800
-+++ gcc.spec	2016-12-24 10:44:09.000000000 +0800
++++ gcc.spec	2016-12-24 21:07:21.000000000 +0800
 @@ -65,7 +65,7 @@
  %global build_libmpx 0
  %endif
@@ -21,11 +21,31 @@
  %endif
  # For VTA guality testing
  BuildRequires: gdb
-@@ -593,7 +593,6 @@
+@@ -593,8 +593,6 @@
  %package -n cpp
  Summary: The C Preprocessor
  Group: Development/Languages
 -Requires: filesystem >= 3
- Provides: /lib/cpp
+-Provides: /lib/cpp
  Requires(post): /sbin/install-info
  Requires(preun): /sbin/install-info
+ Autoreq: true
+@@ -1168,7 +1166,8 @@
+ # fix some things
+ ln -sf gcc %{buildroot}%{_prefix}/bin/cc
+ rm -f %{buildroot}%{_prefix}/lib/cpp
+-ln -sf ../bin/cpp %{buildroot}/%{_prefix}/lib/cpp
++mkdir -p %{buildroot}/lib
++ln -sf ..%{_prefix}/bin/cpp %{buildroot}/lib/cpp
+ ln -sf gfortran %{buildroot}%{_prefix}/bin/f95
+ rm -f %{buildroot}%{_infodir}/dir
+ gzip -9 %{buildroot}%{_infodir}/*.info*
+@@ -2461,7 +2460,7 @@
+ %license gcc/COPYING* COPYING.RUNTIME
+ 
+ %files -n cpp -f cpplib.lang
+-%{_prefix}/lib/cpp
++/lib/cpp
+ %{_prefix}/bin/cpp
+ %{_mandir}/man1/cpp.1*
+ %{_infodir}/cpp*
