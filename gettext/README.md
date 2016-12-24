@@ -5,5 +5,6 @@
 
 ##Modified
 <pre>
-- Remove 'Conflicts: filesystem < 3'
+- Removed 'Conflicts: filesystem < 3'
+- Changed '/usr/bin/python3' to '/usr/bin/python' in 'msghack'
 </pre>
