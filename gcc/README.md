@@ -1,7 +1,7 @@
 #gcc
 
 ##Compiled from
-<pre>gcc-6.2.1-2.fc26.src.rpm</pre>
+<pre>gcc-6.3.1-1.fc26.src.rpm</pre>
 
 ##Modified
 <pre>
