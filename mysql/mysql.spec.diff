@@ -1,5 +1,5 @@
---- mysql.spec.old	2016-09-17 04:20:46.000000000 +0800
-+++ mysql.spec	2016-12-15 15:17:12.000000000 +0800
+--- mysql.spec.old	2016-12-17 08:25:55.000000000 +0800
++++ mysql.spec	2016-12-24 19:27:08.000000000 +0800
 @@ -38,7 +38,7 @@
  # When there is already another package that ships /etc/my.cnf,
  # rather include it than ship the file again, since conflicts between
@@ -15,10 +15,10 @@
  
 -Name:             community-mysql
 +Name:             mysql
- Version:          5.7.15
+ Version:          5.7.17
  Release:          1%{?with_debug:.debug}%{?dist}
  Summary:          MySQL client programs and shared libraries
-@@ -168,7 +168,7 @@
+@@ -175,7 +175,7 @@
  Requires:         bash
  Requires:         fileutils
  Requires:         grep
@@ -27,7 +27,7 @@
  
  %if %{with mysql_names}
  Provides:         mysql = %{sameevr}
-@@ -203,6 +203,7 @@
+@@ -210,6 +210,7 @@
  Summary:          The shared libraries required for MySQL clients
  Group:            Applications/Databases
  Requires:         %{name}-common%{?_isa} = %{sameevr}
@@ -35,7 +35,7 @@
  %if %{with mysql_names}
  Provides:         mysql-libs = %{sameevr}
  Provides:         mysql-libs%{?_isa} = %{sameevr}
-@@ -405,6 +406,9 @@
+@@ -417,6 +418,9 @@
  
  touch %{skiplist}
  

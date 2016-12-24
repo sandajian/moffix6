@@ -1,7 +1,7 @@
 #mysql
 
 ##Compiled from
-<pre>community-mysql-5.7.15-1.fc26.src.rpm</pre>
+<pre>community-mysql-5.7.17-1.fc26.src.rpm</pre>
 
 ##Modified
 <pre>
