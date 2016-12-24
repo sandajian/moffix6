@@ -1,5 +1,5 @@
---- gettext.spec.old	2016-08-10 16:32:54.000000000 +0800
-+++ gettext.spec	2016-12-23 13:08:03.000000000 +0800
+--- gettext.spec.old	2016-12-21 01:42:12.000000000 +0800
++++ gettext.spec	2016-12-24 14:09:54.000000000 +0800
 @@ -55,7 +55,6 @@
  Requires(post): info
  Requires(preun): info
@@ -8,7 +8,7 @@
  Provides: /bin/gettext
  # exception for bundled gnulib copylib
  Provides: bundled(gnulib)
-@@ -174,6 +173,7 @@
+@@ -183,6 +182,7 @@
  
  install -pm 755 %SOURCE2 ${RPM_BUILD_ROOT}/%{_bindir}/msghack
  install -pm 644 %SOURCE3 ${RPM_BUILD_ROOT}/%{_mandir}/man1/msghack.1

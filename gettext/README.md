@@ -1,7 +1,7 @@
 #gettext
 
 ##Compiled from
-<pre>gettext-0.19.8.1-2.fc26.src.rpm<pre>
+<pre>gettext-0.19.8.1-5.fc26.src.rpm<pre>
 
 ##Modified
 <pre>
