@@ -1,7 +1,7 @@
 #boost
 
 ##Compiled from
-<pre>boost-1.60.0-11.fc26.src.rpm</pre>
+<pre>boost-1.60.0-12.fc26.src.rpm</pre>
 
 ##Modified
 <pre>
