@@ -1,5 +1,5 @@
 --- libpsl.spec.old	2016-11-16 00:14:17.000000000 +0800
-+++ libpsl.spec	2016-12-27 11:23:46.000000000 +0800
++++ libpsl.spec	2016-12-27 15:02:08.000000000 +0800
 @@ -5,14 +5,16 @@
  License:        MIT
  URL:            https://rockdaboot.github.io/libpsl
@@ -8,8 +8,9 @@
  BuildRequires:  gettext-devel
  BuildRequires:  glib2-devel
 -BuildRequires:  gtk-doc
+-BuildRequires:  libicu-devel
 +BuildRequires:  gtk-doc >= 1.15
- BuildRequires:  libicu-devel
++BuildRequires:  libicu-devel >= 4.6
  BuildRequires:  libidn2-devel
  BuildRequires:  libunistring-devel
  BuildRequires:  libxslt
