@@ -12,4 +12,5 @@
 <pre>
 - Using python34
 - Set LANG=en_US.UTF-8 when building, solving psl2c problem.
+- BuildRequires: gtk-doc >= 1.15
 </pre>
