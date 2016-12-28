@@ -1,0 +1,11 @@
+--- openvas-scanner.spec.old	2016-11-14 03:30:03.000000000 +0800
++++ openvas-scanner.spec	2016-12-28 13:28:58.000000000 +0800
+@@ -97,7 +97,7 @@
+ 
+ %build
+ #configure --disable-static
+-export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable"
++export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -fno-strict-aliasing"
+ %cmake -DLOCALSTATEDIR:PATH=%{_var} -DOPENVASSD_RULES:PATH=%{_sysconfdir}/openvas/openvassd.rules
+ make %{?_smp_mflags} VERBOSE=1
+ 
