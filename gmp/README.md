@@ -8,3 +8,8 @@
 - Added a patch to fix an ancient bug about 'mpz/t-scan' test
 - Added a patch to remove ansi2knr-related issues (automatic de-ANSI-fication support has been removed)
 </pre>
+
+##Notes
+<pre>
+- gmp-4.3.2-5 is the latest compatible version that provides libgmp.so.3
+</pre>
