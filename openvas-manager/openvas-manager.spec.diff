@@ -1,6 +1,12 @@
 --- openvas-manager.spec.old	2016-09-05 22:28:26.000000000 +0800
-+++ openvas-manager.spec	2016-12-22 17:28:32.000000000 +0800
-@@ -29,7 +29,7 @@
++++ openvas-manager.spec	2016-12-28 15:39:49.000000000 +0800
+@@ -26,10 +26,13 @@
+ # Replace _BSD_SOURCE and _SVID_SOURCE with _DEFAULT_SOURCE otherwise build fails with Werror
+ Patch3:		%{name}-bsdsource.patch
+ 
++# Fix: src/manage_sql.c:2656: error: ignoring return value of 'strtol', declared with attribute warn_unused_result
++Patch9:		openvas-manager-6.0.9-unused-result.patch
++
  BuildRequires:	openvas-libraries-devel >= 7.0
  BuildRequires:	cmake >= 2.6.0
  BuildRequires:	glib2-devel
@@ -9,7 +15,7 @@
  BuildRequires:	gnutls-devel
  BuildRequires:	libgcrypt-devel
  BuildRequires:	libuuid-devel
-@@ -53,6 +53,7 @@
+@@ -53,6 +56,7 @@
  
  Requires:	logrotate
  Requires:	/usr/bin/xsltproc
@@ -17,12 +23,20 @@
  
  
  %description
-@@ -82,7 +83,7 @@
+@@ -70,6 +74,7 @@
+ #%patch0 -p1 -b .notused
+ %patch1 -p1 -b .pki
+ %patch2 -p1 -b .gpgerror
++%patch9 -p1 -b .unused-result
+ 
+ #%if 0%{?fedora} >= 21
+ #%patch3 -p1 -b .bsdsource
+@@ -82,7 +87,7 @@
  mv ChangeLog.utf8 ChangeLog
  
  %build
 -export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -lgpg-error"
-+export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -Wno-error=unused-result -lgpg-error"
++export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -lgpg-error -fno-strict-aliasing"
  %cmake -DLOCALSTATEDIR:PATH=%{_var}
  make %{?_smp_mflags} VERBOSE=1
  
