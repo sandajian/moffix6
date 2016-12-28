@@ -9,6 +9,8 @@
 - Requires: glib2 >= 2.30
 - Requires: gnutls >= 2.12.10
 - Added 2 patches for gcc-6.2.1
+- openvas-libraries-devel explicitly requires 'gnutls-devel >= 2.12.10',
+  or else the requirement of 'pkgconfig(gnutls)' will install gnutls30-devel from EPEL
 </pre>
 
 ##Notes

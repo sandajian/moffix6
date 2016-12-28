@@ -1,5 +1,5 @@
 --- openvas-libraries.spec.old	2016-09-05 19:40:17.000000000 +0800
-+++ openvas-libraries.spec	2016-12-22 17:24:43.000000000 +0800
++++ openvas-libraries.spec	2016-12-28 14:21:20.000000000 +0800
 @@ -16,10 +16,14 @@
  
  #Fix fo newer version of libssh
@@ -25,7 +25,15 @@
  
  
  %description
-@@ -70,6 +76,10 @@
+@@ -45,6 +51,7 @@
+ Summary:	Development files for openvas-libraries
+ Group:		Development/Libraries
+ Requires:	%{name} = %{version}-%{release}
++Requires:	gnutls-devel >= 2.12.10
+ 
+ %description devel
+ Development libraries and headers for use with %{name}.
+@@ -70,6 +77,10 @@
  
  #Fix for newer version of the libssh
  %patch10 -p 1 -b .libssh
