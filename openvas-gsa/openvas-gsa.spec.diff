@@ -1,5 +1,5 @@
 --- openvas-gsa.spec.old	2016-09-06 06:01:05.000000000 +0800
-+++ openvas-gsa.spec	2016-12-22 21:00:37.000000000 +0800
++++ openvas-gsa.spec	2016-12-28 14:36:40.000000000 +0800
 @@ -48,8 +48,7 @@
  BuildRequires:  gettext
  
@@ -10,3 +10,12 @@
  
  %if 0%{?rhel} >= 7 || 0%{?fedora} > 15
  BuildRequires:          systemd
+@@ -84,7 +83,7 @@
+ 
+ 
+ %build
+-export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -lgpg-error -Wno-error=deprecated-declarations"
++export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -lgpg-error -Wno-error=deprecated-declarations -fno-strict-aliasing"
+ %cmake -DLOCALSTATEDIR:PATH=%{_var} -DSYSCONFDIR:PATH=/etc/
+ make %{?_smp_mflags} VERBOSE=1
+ 
