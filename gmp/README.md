@@ -6,4 +6,5 @@
 ##Modified
 <pre>
 - Added a patch to fix an ancient bug about 'mpz/t-scan' test
+- Added a patch to remove ansi2knr-related issues (automatic de-ANSI-fication support has been removed)
 </pre>
