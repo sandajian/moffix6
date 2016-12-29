@@ -1,5 +1,5 @@
 --- mariadb.spec.old	2016-12-17 07:37:46.000000000 +0800
-+++ mariadb.spec	2016-12-29 14:02:39.000000000 +0800
++++ mariadb.spec	2016-12-29 14:48:26.000000000 +0800
 @@ -25,7 +25,7 @@
  # variable tokudb allows to build with TokuDB storage engine
  # Temporarily disabled in F21+ for https://mariadb.atlassian.net/browse/MDEV-6446
@@ -9,7 +9,23 @@
  %else
  %bcond_with tokudb
  %endif
-@@ -605,6 +605,8 @@
+@@ -237,6 +237,7 @@
+ Requires:         fileutils
+ Requires:         grep
+ Requires:         %{name}-common%{?_isa} = %{sameevr}
++Requires:         %{name}-libs%{?_isa} = %{sameevr}
+ 
+ %if %{with mysql_names}
+ Provides:         mysql = %{sameevr}
+@@ -282,6 +283,7 @@
+ Summary:          The shared libraries required for MariaDB/MySQL clients
+ Group:            Applications/Databases
+ Requires:         %{name}-common%{?_isa} = %{sameevr}
++Requires:         %{name}-config%{?_isa} = %{sameevr}
+ %if %{with mysql_names}
+ Provides:         mysql-libs = %{sameevr}
+ Provides:         mysql-libs%{?_isa} = %{sameevr}
+@@ -605,6 +607,8 @@
  cat %{SOURCE52} | tee -a mysql-test/rh-skipped-tests.list
  %endif
  
@@ -18,7 +34,7 @@
  cp %{SOURCE2} %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} \
     %{SOURCE14} %{SOURCE15} %{SOURCE16} %{SOURCE17} %{SOURCE18} %{SOURCE19} \
     %{SOURCE70} scripts
-@@ -759,7 +761,7 @@
+@@ -759,7 +763,7 @@
  # but that's pretty wacko --- see also %%{name}-file-contents.patch)
  install -p -m 644 Docs/INFO_SRC %{buildroot}%{_libdir}/mysql/
  install -p -m 644 Docs/INFO_BIN %{buildroot}%{_libdir}/mysql/
@@ -27,7 +43,7 @@
  
  mkdir -p %{buildroot}%{logfiledir}
  chmod 0750 %{buildroot}%{logfiledir}
-@@ -1163,7 +1165,9 @@
+@@ -1163,7 +1167,9 @@
  %{_bindir}/aria_ftdump
  %{_bindir}/aria_pack
  %{_bindir}/aria_read_log
@@ -37,7 +53,7 @@
  %{_bindir}/myisamchk
  %{_bindir}/myisam_ftdump
  %{_bindir}/myisamlog
-@@ -1265,11 +1269,13 @@
+@@ -1265,11 +1271,13 @@
  %{_datadir}/%{pkg_name}/policy/apparmor/usr.sbin.mysqld*
  %{_datadir}/%{pkg_name}/policy/selinux/README
  %{_datadir}/%{pkg_name}/policy/selinux/mariadb-server.*

@@ -10,6 +10,8 @@
 	plugins.feedback_plugin_load test failed:
 		Warning        1265    Data truncated for column 'VARIABLE_VALUE' at row 498
 - Remove systemd-releated files
+- 'mariadb' requires 'mariadb-libs'
+- 'mariadb-libs' requires 'mariadb-config'
 - Fix a '%{_pkgdocdir}' related issue.
 </pre>
 
