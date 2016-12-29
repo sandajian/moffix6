@@ -5,7 +5,7 @@
 
 ##Modified
 <pre>
-- Without `tokudb'
+- Without `tokudb', for g++ 4.4.7 does not support designated initializers.
 - Remove test `plugins.feedback_plugin_load'
 	plugins.feedback_plugin_load test failed:
 		Warning        1265    Data truncated for column 'VARIABLE_VALUE' at row 498
