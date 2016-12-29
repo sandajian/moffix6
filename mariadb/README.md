@@ -1,11 +1,10 @@
 #mariadb
 
 ##Compiled from
-<pre>mariadb-10.1.19-3.fc26.src.rpm</pre>
+<pre>mariadb-10.1.20-1.fc26.src.rpm</pre>
 
 ##Modified
 <pre>
-- BuildRequires: openssl, openssl-devel
 - Without `tokudb'
 - Remove test `plugins.feedback_plugin_load'
 	plugins.feedback_plugin_load test failed:

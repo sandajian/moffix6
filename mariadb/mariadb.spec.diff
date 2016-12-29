@@ -1,5 +1,5 @@
---- mariadb.spec.old	2016-11-16 21:59:52.000000000 +0800
-+++ mariadb.spec	2016-12-12 11:20:30.000000000 +0800
+--- mariadb.spec.old	2016-12-17 07:37:46.000000000 +0800
++++ mariadb.spec	2016-12-29 13:25:12.000000000 +0800
 @@ -25,7 +25,7 @@
  # variable tokudb allows to build with TokuDB storage engine
  # Temporarily disabled in F21+ for https://mariadb.atlassian.net/browse/MDEV-6446
@@ -9,23 +9,7 @@
  %else
  %bcond_with tokudb
  %endif
-@@ -213,12 +213,9 @@
- BuildRequires:    perl(Time::HiRes)
- 
- 
--# Temporary workaound to build with OpenSSL 1.0 on Fedora >=26 (wich requires OpenSSL 1.1)
--BuildRequires:    compat-openssl10-devel
--Requires:         compat-openssl10
--  # for running some openssl tests rhbz#1189180
--  #BuildRequires:    openssl
--  #BuildRequires:    openssl-devel
-+# for running some openssl tests rhbz#1189180
-+BuildRequires:    openssl
-+BuildRequires:    openssl-devel
- BuildRequires:    krb5-devel
- 
- BuildRequires:    selinux-policy-devel
-@@ -593,6 +590,8 @@
+@@ -605,6 +605,8 @@
  cat %{SOURCE52} | tee -a mysql-test/rh-skipped-tests.list
  %endif
  
@@ -34,7 +18,7 @@
  cp %{SOURCE2} %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} \
     %{SOURCE14} %{SOURCE15} %{SOURCE16} %{SOURCE17} %{SOURCE18} %{SOURCE19} \
     %{SOURCE70} scripts
-@@ -1134,7 +1133,9 @@
+@@ -1163,7 +1165,9 @@
  %{_bindir}/aria_ftdump
  %{_bindir}/aria_pack
  %{_bindir}/aria_read_log
@@ -44,7 +28,7 @@
  %{_bindir}/myisamchk
  %{_bindir}/myisam_ftdump
  %{_bindir}/myisamlog
-@@ -1236,11 +1237,13 @@
+@@ -1265,11 +1269,13 @@
  %{_datadir}/%{pkg_name}/policy/apparmor/usr.sbin.mysqld*
  %{_datadir}/%{pkg_name}/policy/selinux/README
  %{_datadir}/%{pkg_name}/policy/selinux/mariadb-server.*
