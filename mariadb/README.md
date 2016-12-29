@@ -12,3 +12,11 @@
 - Remove systemd-releated files
 - Fix a '%{_pkgdocdir}' related issue.
 </pre>
+
+##Notes
+<pre>
+- Designated initializers:
+	struct a {int b; int c; };
+	struct a d = { .b=1, .c=2 };
+	int main() { return 0; }
+</pre>
