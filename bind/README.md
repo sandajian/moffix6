@@ -11,4 +11,5 @@
 - Removed 'sdb-chroot'
 - /run/named -> /var/run/named
 - Modified default /etc/named.conf: /run/named -> /var/run/named, comments out the 'crypto-policies' line.
+- Added '-r /dev/urandom' to '/usr/sbin/rndc-confgen -a'
 </pre>
