@@ -5,7 +5,7 @@
 
 ##Modified
 <pre>
-- - Keep /usr/lib64/libuv*.so.* only
+- Keep /usr/lib64/libuv*.so.* only
 </pre>
 
 ##Required by
