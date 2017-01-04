@@ -9,6 +9,7 @@
 - Added 'httpd.init' and 'htcacheclean.init' from sclo/rh/httpd24
 - Requires: system-logos-httpd -> redhat-logos, hostname -> /bin/hostname
 - Put macros.httpd to /etc/rpm/
+- /run/httpd/ -> /var/run/httpd/
 </pre>
 
 ##Notes
