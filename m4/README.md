@@ -15,5 +15,6 @@
 
 ##Notes
 <pre>
+- 'makeinfo' (from 'texinfo') is required when building
 - After automake is updated, we may recompile m4 without modification.
 </pre>
