@@ -1,0 +1,9 @@
+diff -Naur libpsl-0.15.0.old/src/psl-make-dafsa libpsl-0.15.0/src/psl-make-dafsa
+--- libpsl-0.15.0.old/src/psl-make-dafsa	2016-11-14 16:46:49.000000000 +0800
++++ libpsl-0.15.0/src/psl-make-dafsa	2016-12-10 06:49:29.000000000 +0800
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ # Copyright 2014 The Chromium Authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE.chromium file.
