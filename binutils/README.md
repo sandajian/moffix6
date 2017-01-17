@@ -1,7 +1,7 @@
 #binutils
 
 ##Compiled from
-<pre>binutils-2.27-12.fc26.src.rpm</pre>
+<pre>binutils-2.26.1-1.fc25.src.rpm</pre>
 
 ##Notes
 <pre>

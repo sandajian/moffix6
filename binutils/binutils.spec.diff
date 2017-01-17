@@ -1,0 +1,14 @@
+--- binutils.spec.old	2016-08-15 16:28:57.000000000 +0800
++++ binutils.spec	2017-01-17 15:36:00.000000000 +0800
+@@ -101,9 +101,11 @@
+ BuildRequires: dejagnu, zlib-static, glibc-static, sharutils, bc
+ %if "%{build_gold}" == "both"
+ # The GOLD testsuite needs a static libc++
++%if 0%{?moffix} != 6
+ BuildRequires: libstdc++-static
+ %endif
+ %endif
++%endif
+ Conflicts: gcc-c++ < 4.0.0
+ Requires(post): /sbin/install-info
+ Requires(preun): /sbin/install-info
