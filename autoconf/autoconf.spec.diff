@@ -1,23 +1,30 @@
 --- autoconf.spec.old	2016-02-04 01:17:37.000000000 +0800
-+++ autoconf.spec	2017-01-17 09:04:25.000000000 +0800
-@@ -10,6 +10,8 @@
++++ autoconf.spec	2017-01-17 13:25:21.000000000 +0800
+@@ -10,6 +10,10 @@
  URL:        http://www.gnu.org/software/autoconf/
  
  Patch1:     autoconf-2.69-perl-5.22-autoscan.patch
++%if 0%{?moffix} == 6
 +Patch2:     autoconf-2.69-test-configure-directories.patch
 +Patch3:     autoconf-2.69-test-libtool.patch
++%endif
  
  BuildArch:  noarch
  
-@@ -21,10 +23,9 @@
+@@ -21,10 +25,16 @@
  # m4 >= 1.4.6 is required, >= 1.4.14 is recommended:
  BuildRequires:      m4 >= 1.4.14
  Requires:           m4 >= 1.4.14
--Requires:           emacs-filesystem
++%if 0%{?moffix} != 6
+ Requires:           emacs-filesystem
++%endif
  BuildRequires:      emacs
  # the filtering macros are currently in /etc/rpm/macros.perl:
--BuildRequires:      perl-macros
++%if 0%{?moffix} == 6
 +BuildRequires:      perl-devel
++%else
+ BuildRequires:      perl-macros
++%endif
  BuildRequires:      perl(Data::Dumper)
  # from f19, Text::ParseWords is not the part of 'perl' package
  BuildRequires:      perl(Text::ParseWords)
