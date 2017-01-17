@@ -1,5 +1,5 @@
---- automake.spec.old	2016-10-13 23:53:44.000000000 +0800
-+++ automake.spec	2016-12-18 15:00:16.000000000 +0800
+--- automake.spec.old	2016-06-28 21:32:53.000000000 +0800
++++ automake.spec	2017-01-17 09:32:58.000000000 +0800
 @@ -52,7 +52,7 @@
  
  # the filtering macros are currently in /etc/rpm/macros.perl:

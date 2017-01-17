@@ -1,7 +1,7 @@
 #automake
 
 ##Compiled from
-<pre>automake-1.15-8.fc26.src.rpm</pre>
+<pre>automake-1.15-7.fc25.src.rpm</pre>
 
 ##Modified
 <pre>

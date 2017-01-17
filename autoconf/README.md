@@ -1,7 +1,7 @@
 #autoconf
 
 ##Compiled from
-<pre>autoconf-2.69-23.fc26.src.rpm</pre>
+<pre>autoconf-2.69-22.fc24.src.rpm</pre>
 
 ##Modified
 <pre>

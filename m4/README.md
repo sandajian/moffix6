@@ -1,7 +1,7 @@
 #m4
 
 ##Compiled from
-<pre>m4-1.4.18-1.fc26.src.rpm</pre>
+<pre>m4-1.4.17-9.fc24.src.rpm</pre>
 
 ##Required by
 <pre>
