@@ -1,10 +1,12 @@
 --- glog.spec.old	2016-03-26 01:40:08.000000000 +0800
-+++ glog.spec	2016-12-08 05:48:16.000000000 +0800
-@@ -24,6 +24,7 @@
++++ glog.spec	2017-01-18 16:12:18.000000000 +0800
+@@ -24,6 +24,9 @@
  Summary:        Development files for %{name}
  Group:          Development/Libraries
  Requires:       %{name} = %{version}-%{release}
++%if 0%{?moffix} == 6
 +Requires:       gflags-devel >= 2.1.0
++%endif
  
  %description    devel
  The %{name}-devel package contains libraries and header files for
