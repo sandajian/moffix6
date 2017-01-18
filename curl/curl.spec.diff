@@ -1,22 +1,29 @@
---- curl.spec.old	2016-11-21 17:06:51.000000000 +0800
-+++ curl.spec	2016-12-10 11:39:17.000000000 +0800
-@@ -91,10 +91,6 @@
+--- curl.spec.old	2016-12-23 18:07:30.000000000 +0800
++++ curl.spec	2017-01-18 12:58:00.000000000 +0800
+@@ -94,9 +94,11 @@
  Group: Development/Libraries
  Requires: libssh2%{?_isa} >= %{libssh2_version}
  
--# libnsspem.so is no longer included in the nss package (#1347336)
--BuildRequires: nss-pem
--Requires: nss-pem
--
++%if 0%{?moffix} != 6
+ # libnsspem.so is no longer included in the nss package (#1347336)
+ BuildRequires: nss-pem
+ Requires: nss-pem
++%endif
+ 
  %description -n libcurl
  libcurl is a free and easy-to-use client-side URL transfer library, supporting
- FTP, FTPS, HTTP, HTTPS, SCP, SFTP, TFTP, TELNET, DICT, LDAP, LDAPS, FILE, IMAP,
-@@ -110,7 +106,7 @@
+@@ -111,10 +113,14 @@
+ Group: Development/Libraries
+ Requires: libcurl%{?_isa} = %{version}-%{release}
  
++%if 0%{?moffix} == 6
++Requires: automake
++%else
  # From Fedora 14, %%{_datadir}/aclocal is included in the filesystem package
  %if 0%{?fedora} < 14
--Requires: %{_datadir}/aclocal
-+Requires: automake
+ Requires: %{_datadir}/aclocal
  %endif
++%endif
  
  # From Fedora 11, RHEL-6, pkgconfig dependency is auto-detected
+ %if 0%{?fedora} < 11 && 0%{?rhel} < 6

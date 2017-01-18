@@ -1,7 +1,7 @@
 #curl
 
 ##Compiled from
-<pre>curl-7.51.0-3.fc26.src.rpm</pre>
+<pre>curl-7.51.0-4.fc25.src.rpm</pre>
 
 ##Modified
 <pre>

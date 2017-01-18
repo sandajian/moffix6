@@ -1,37 +1,32 @@
---- libpsl.spec.old	2016-11-16 00:14:17.000000000 +0800
-+++ libpsl.spec	2016-12-27 15:02:08.000000000 +0800
-@@ -5,14 +5,16 @@
+--- libpsl.spec.old	2016-11-04 14:28:40.000000000 +0800
++++ libpsl.spec	2017-01-18 11:31:08.000000000 +0800
+@@ -5,10 +5,19 @@
  License:        MIT
  URL:            https://rockdaboot.github.io/libpsl
  Source0:        https://github.com/rockdaboot/libpsl/releases/download/libpsl-%{version}/libpsl-%{version}.tar.gz
-+Patch99:        libpsl-0.15.0-psl-make-dafsa-python3.patch
++%if 0%{?moffix} == 6
++Patch99:        libpsl-0.14.0-psl-make-dafsa-python3.patch
++%endif
  BuildRequires:  gettext-devel
  BuildRequires:  glib2-devel
--BuildRequires:  gtk-doc
--BuildRequires:  libicu-devel
++%if 0%{?moffix} == 6
++BuildRequires:  python34
 +BuildRequires:  gtk-doc >= 1.15
 +BuildRequires:  libicu-devel >= 4.6
++%else
+ BuildRequires:  gtk-doc
+ BuildRequires:  libicu-devel
++%endif
  BuildRequires:  libidn2-devel
  BuildRequires:  libunistring-devel
  BuildRequires:  libxslt
- BuildRequires:  publicsuffix-list
-+BuildRequires:  python34
- 
- %description
- libpsl is a C library to handle the Public Suffix List. A "public suffix" is a
-@@ -56,6 +58,7 @@
+@@ -56,6 +65,9 @@
  
  %prep
  %setup -q
++%if 0%{?moffix} == 6
 +%patch99 -p1
++%endif
  rm -frv list
  
  %build
-@@ -85,6 +88,7 @@
-            --with-psl-file=%{_datadir}/publicsuffix/effective_tld_names.dat           \
-            --with-psl-testfile=%{_datadir}/publicsuffix/test_psl.txt
- 
-+export LANG=en_US.UTF-8
- %make_build
- 
- %install
