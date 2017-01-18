@@ -1,46 +1,57 @@
---- openvas-libraries.spec.old	2016-09-05 19:40:17.000000000 +0800
-+++ openvas-libraries.spec	2016-12-28 14:21:20.000000000 +0800
-@@ -16,10 +16,14 @@
+--- openvas-libraries.spec.old	2016-09-05 22:31:03.000000000 +0800
++++ openvas-libraries.spec	2017-01-18 16:23:56.000000000 +0800
+@@ -16,10 +16,20 @@
  
  #Fix fo newer version of libssh
  Patch10:	openvas-libraries-libssh.patch
++%if 0%{?moffix} == 6
 +#Fix for unused const variable in nasl/iconv.c
 +Patch11:	openvas-libraries-8.0.8-unused-const-variable.patch
 +#Fix for misleading-indentation in nasl/nasl_builtin_synscan.c
 +Patch12:	openvas-libraries-8.0.8-misleading-indentation.patch
++%endif
  
  BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
  Obsoletes:	openvas-libnasl
--BuildRequires:	glib2-devel
++%if 0%{?moffix} == 6
 +BuildRequires:	glib2-devel >= 2.30
++%else
+ BuildRequires:	glib2-devel
++%endif
  BuildRequires:	libgcrypt-devel
  BuildRequires:	gnutls-devel >= 2.12.10
  BuildRequires:	libpcap-devel
-@@ -34,6 +38,8 @@
+@@ -34,6 +44,10 @@
  BuildRequires:	openldap-devel
  BuildRequires:	libssh-devel
  BuildRequires:	hiredis-devel
++%if 0%{?moffix} == 6
 +Requires:	gnutls >= 2.12.10
 +Requires:	glib2 >= 2.30
++%endif
  
  
  %description
-@@ -45,6 +51,7 @@
+@@ -45,6 +59,9 @@
  Summary:	Development files for openvas-libraries
  Group:		Development/Libraries
  Requires:	%{name} = %{version}-%{release}
++%if 0%{?moffix} == 6
 +Requires:	gnutls-devel >= 2.12.10
++%endif
  
  %description devel
  Development libraries and headers for use with %{name}.
-@@ -70,6 +77,10 @@
+@@ -70,6 +87,12 @@
  
  #Fix for newer version of the libssh
  %patch10 -p 1 -b .libssh
++%if 0%{?moffix} == 6
 +#Fix for unused const variable in nasl/iconv.c
 +%patch11 -p 2 -b .unused-const-variable
 +#Fix for misleading-indentation in nasl/nasl_builtin_synscan.c
 +%patch12 -p 2 -b .misleading-indentation
++%endif
  
  #Fix codepage of the Changelog
  iconv -f LATIN1 -t UTF8 < ChangeLog > ChangeLog1
