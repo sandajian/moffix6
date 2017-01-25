@@ -16,4 +16,5 @@
 ##Notes
 <pre>
 - gtk-doc-1.25 requires: perl >= 5.18.0
+- Install 'fop' before compiling, or else XML and PDF support will not be enabled
 </pre>
