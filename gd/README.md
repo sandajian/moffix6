@@ -1,7 +1,7 @@
 #gd
 
 ##Compiled from
-<pre>gd-2.2.3-5.fc26.src.rpm</pre>
+<pre>gd-2.2.4-1.fc25.src.rpm</pre>
 
 ##Modified
 <pre>

@@ -1,10 +1,13 @@
---- gd.spec.old	2016-12-06 18:10:01.000000000 +0800
-+++ gd.spec	2016-12-20 06:26:45.000000000 +0800
-@@ -139,6 +139,7 @@
+--- gd.spec.old	2017-01-19 16:59:35.000000000 +0800
++++ gd.spec	2017-01-27 11:11:32.000000000 +0800
+@@ -143,6 +143,10 @@
+ XFAIL_TESTS="freetype/bug00132 $XFAIL_TESTS"
+ XFAIL_TESTS="gdimagestringft/gdimagestringft_bbox $XFAIL_TESTS"
+ %endif
++%if 0%{?moffix} == 6
++# See https://github.com/libgd/libgd/issues/363
++XFAIL_TESTS="freetype/bug00132 $XFAIL_TESTS"
++%endif
  
- 
- %check
-+export XFAIL_TESTS="freetype/bug00132"
- : Upstream test suite
- make check
+ export XFAIL_TESTS
  
