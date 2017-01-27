@@ -1,208 +1,161 @@
 --- compat-ImageMagick.spec.old	2016-06-03 23:11:39.000000000 +0800
-+++ compat-ImageMagick.spec	2016-12-02 10:34:39.000000000 +0800
-@@ -1,16 +1,16 @@
++++ compat-ImageMagick.spec	2017-01-27 17:13:31.000000000 +0800
+@@ -1,16 +1,26 @@
  %define VER 6.7.2
  %define Patchlevel 7
  
--Name:           ImageMagick
++%if 0%{?moffix} == 6
 +Name:           compat-ImageMagick
++%else
+ Name:           ImageMagick
++%endif
  Version:        %{VER}.%{Patchlevel}
  Release:        5%{?dist}
  Summary:        An X application for displaying and manipulating images
  Group:          Applications/Multimedia
  License:        ImageMagick
  Url:            http://www.imagemagick.org/
--# Source0:        ftp://ftp.ImageMagick.org/pub/%{name}/%{name}-%{VER}-%{Patchlevel}.tar.lzma
++%if 0%{?moffix} == 6
 +# Source0:        ftp://ftp.ImageMagick.org/pub/ImageMagick/ImageMagick-%{VER}-%{Patchlevel}.tar.lzma
- # Reference mirror ftp://ftp.nluug.nl instead which keeps older releases longer
--Source0:        ftp://ftp.nluug.nl/pub/%{name}/%{name}-%{VER}-%{Patchlevel}.tar.gz
++# Reference mirror ftp://ftp.nluug.nl instead which keeps older releases longer
 +Source0:        ftp://ftp.nluug.nl/pub/ImageMagick/ImageMagick-%{VER}-%{Patchlevel}.tar.gz
++%else
+ # Source0:        ftp://ftp.ImageMagick.org/pub/%{name}/%{name}-%{VER}-%{Patchlevel}.tar.lzma
+ # Reference mirror ftp://ftp.nluug.nl instead which keeps older releases longer
+ Source0:        ftp://ftp.nluug.nl/pub/%{name}/%{name}-%{VER}-%{Patchlevel}.tar.gz
++%endif
  Patch1:         ImageMagick-6.4.0-multilib.patch
  # CVE-2012-0247 CVE-2012-0248 CVE-2012-1185 CVE-2012-1186
  Patch3: ImageMagick-6.7.2-cve-2012-0247-0248.patch
-@@ -50,55 +50,6 @@
+@@ -50,6 +60,7 @@
  which use ImageMagick code or APIs, you need to install
  ImageMagick-devel as well.
  
--%package devel
--Summary: Library links and header files for ImageMagick app development
--Group: Development/Libraries
--Requires: %{name} = %{version}-%{release}
--Requires: libX11-devel, libXext-devel, libXt-devel
--Requires: ghostscript-devel
--Requires: bzip2-devel
--Requires: freetype-devel
--Requires: libtiff-devel
--Requires: libjpeg-devel
--Requires: lcms-devel
--Requires: jasper-devel
--Requires: pkgconfig
--
--%description devel
--ImageMagick-devel contains the library links and header files you'll
--need to develop ImageMagick applications. ImageMagick is an image
--manipulation program.
--
--If you want to create applications that will use ImageMagick code or
--APIs, you need to install ImageMagick-devel as well as ImageMagick.
--You do not need to install it if you just want to use ImageMagick,
--however.
--
--
--%package doc
--Summary: ImageMagick html documentation
--Group: Documentation
--
--%description doc
--ImageMagick documentation, this package contains usage (for the
--commandline tools) and API (for the libraries) documentation in html format.
--Note this documentation can also be found on the ImageMagick website:
--http://www.imagemagick.org/
--
--
--%package perl
--Summary: ImageMagick perl bindings
--Group: System Environment/Libraries
--Requires: %{name} = %{version}-%{release}
--Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
--
--%description perl
--Perl bindings to ImageMagick.
--
--Install ImageMagick-perl if you want to use any perl scripts that use
--ImageMagick.
--
--
++%if 0%{?moffix} != 6
+ %package devel
+ Summary: Library links and header files for ImageMagick app development
+ Group: Development/Libraries
+@@ -97,6 +108,7 @@
+ 
+ Install ImageMagick-perl if you want to use any perl scripts that use
+ ImageMagick.
++%endif
+ 
+ 
  %package c++
- Summary: ImageMagick Magick++ library (C++ bindings)
- Group: System Environment/Libraries
-@@ -111,27 +62,8 @@
+@@ -111,6 +123,7 @@
  Install ImageMagick-c++ if you want to use any applications that use Magick++.
  
  
--%package c++-devel
--Summary: C++ bindings for the ImageMagick library
--Group: Development/Libraries
--Requires: %{name}-c++ = %{version}-%{release}
--Requires: %{name}-devel = %{version}-%{release}
--
--%description c++-devel
--ImageMagick-devel contains the static libraries and header files you'll
--need to develop ImageMagick applications using the Magick++ C++ bindings.
--ImageMagick is an image manipulation program.
--
--If you want to create applications that will use Magick++ code
--or APIs, you'll need to install ImageMagick-c++-devel, ImageMagick-devel and
--ImageMagick.
--You don't need to install it if you just want to use ImageMagick, or if you
--want to develop/compile applications using the ImageMagick C interface,
--however.
--
--
++%if 0%{?moffix} != 6
+ %package c++-devel
+ Summary: C++ bindings for the ImageMagick library
+ Group: Development/Libraries
+@@ -128,10 +141,15 @@
+ You don't need to install it if you just want to use ImageMagick, or if you
+ want to develop/compile applications using the ImageMagick C interface,
+ however.
++%endif
+ 
+ 
  %prep
--%setup -q -n %{name}-%{VER}-%{Patchlevel}
++%if 0%{?moffix} == 6
 +%setup -q -n ImageMagick-%{VER}-%{Patchlevel}
++%else
+ %setup -q -n %{name}-%{VER}-%{Patchlevel}
++%endif
  %patch1 -p1 -b .multilib
  %patch3 -p1 -b .cve-2012-0247-0248
  %patch4 -p1 -b .cve-2012-0259-0260
-@@ -183,7 +115,7 @@
+@@ -183,7 +201,11 @@
  rm -rf $RPM_BUILD_ROOT
  
  make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
--cp -a www/source $RPM_BUILD_ROOT%{_datadir}/doc/%{name}-%{VER}
++%if 0%{?moffix} == 6
 +cp -a www/source $RPM_BUILD_ROOT%{_datadir}/doc/ImageMagick-%{VER}
++%else
+ cp -a www/source $RPM_BUILD_ROOT%{_datadir}/doc/%{name}-%{VER}
++%endif
  rm $RPM_BUILD_ROOT%{_libdir}/*.la
  
  # fix weird perl Magick.so permissions
-@@ -217,10 +149,10 @@
+@@ -217,10 +239,17 @@
  %define wordsize 32
  %endif
  
--mv $RPM_BUILD_ROOT%{_includedir}/%{name}/magick/magick-config.h \
--   $RPM_BUILD_ROOT%{_includedir}/%{name}/magick/magick-config-%{wordsize}.h
++%if 0%{?moffix} == 6
 +mv $RPM_BUILD_ROOT%{_includedir}/ImageMagick/magick/magick-config.h \
 +   $RPM_BUILD_ROOT%{_includedir}/ImageMagick/magick/magick-config-%{wordsize}.h
- 
--cat >$RPM_BUILD_ROOT%{_includedir}/%{name}/magick/magick-config.h <<EOF
++
 +cat >$RPM_BUILD_ROOT%{_includedir}/ImageMagick/magick/magick-config.h <<EOF
++%else
+ mv $RPM_BUILD_ROOT%{_includedir}/%{name}/magick/magick-config.h \
+    $RPM_BUILD_ROOT%{_includedir}/%{name}/magick/magick-config-%{wordsize}.h
+ 
+ cat >$RPM_BUILD_ROOT%{_includedir}/%{name}/magick/magick-config.h <<EOF
++%endif
  #ifndef IMAGEMAGICK_MULTILIB
  #define IMAGEMAGICK_MULTILIB
  
-@@ -237,6 +169,14 @@
+@@ -237,6 +266,16 @@
  #endif
  EOF
  
++%if 0%{?moffix} == 6
 +rm -f $RPM_BUILD_ROOT%{_bindir}/*
 +rm -fr $RPM_BUILD_ROOT%{_mandir}
-+rm -fr $RPM_BUILD_ROOT%{_libdir}/*.so
++rm -f $RPM_BUILD_ROOT%{_libdir}/*.so
 +rm -fr $RPM_BUILD_ROOT%{_libdir}/pkgconfig
 +rm -fr $RPM_BUILD_ROOT%{_libdir}/perl5
 +rm -fr $RPM_BUILD_ROOT%{_includedir}
 +rm -fr $RPM_BUILD_ROOT%{_datadir}/doc
++%endif
 +
  %clean
  rm -rf $RPM_BUILD_ROOT
  
-@@ -256,36 +196,9 @@
+@@ -256,13 +295,20 @@
  %doc README.txt LICENSE NOTICE AUTHORS.txt NEWS.txt
  %{_libdir}/libMagickCore.so.*
  %{_libdir}/libMagickWand.so.*
--%{_bindir}/[a-z]*
--%{_libdir}/%{name}-%{VER}
--%{_datadir}/%{name}-%{VER}
--%{_mandir}/man[145]/[a-z]*
--%{_mandir}/man1/%{name}.*
--%{_sysconfdir}/%{name}
--
--%files devel
--%defattr(-,root,root,-)
--%{_bindir}/MagickCore-config
--%{_bindir}/Magick-config
--%{_bindir}/MagickWand-config
--%{_bindir}/Wand-config
--%{_libdir}/libMagickCore.so
--%{_libdir}/libMagickWand.so
--%{_libdir}/pkgconfig/MagickCore.pc
--%{_libdir}/pkgconfig/ImageMagick.pc
--%{_libdir}/pkgconfig/MagickWand.pc
--%{_libdir}/pkgconfig/Wand.pc
--%dir %{_includedir}/%{name}
--%{_includedir}/%{name}/magick
--%{_includedir}/%{name}/wand
--%{_mandir}/man1/Magick-config.*
--%{_mandir}/man1/MagickCore-config.*
--%{_mandir}/man1/Wand-config.*
--%{_mandir}/man1/MagickWand-config.*
--
--%files doc
--%defattr(-,root,root,-)
--%doc %{_datadir}/doc/%{name}-%{VER}
++%if 0%{?moffix} == 6
 +%{_libdir}/ImageMagick-%{VER}
 +%{_datadir}/ImageMagick-%{VER}
 +%{_sysconfdir}/ImageMagick
++%else
+ %{_bindir}/[a-z]*
+ %{_libdir}/%{name}-%{VER}
+ %{_datadir}/%{name}-%{VER}
+ %{_mandir}/man[145]/[a-z]*
+ %{_mandir}/man1/%{name}.*
+ %{_sysconfdir}/%{name}
++%endif
+ 
++%if 0%{?moffix} != 6
+ %files devel
+ %defattr(-,root,root,-)
+ %{_bindir}/MagickCore-config
+@@ -286,6 +332,7 @@
+ %files doc
+ %defattr(-,root,root,-)
+ %doc %{_datadir}/doc/%{name}-%{VER}
++%endif
  
  %files c++
  %defattr(-,root,root,-)
-@@ -293,22 +206,6 @@
+@@ -293,6 +340,7 @@
  %doc www/Magick++/COPYING
  %{_libdir}/libMagick++.so.*
  
--%files c++-devel
--%defattr(-,root,root,-)
--%doc Magick++/examples
--%{_bindir}/Magick++-config
--%{_includedir}/%{name}/Magick++
--%{_includedir}/%{name}/Magick++.h
--%{_libdir}/libMagick++.so
--%{_libdir}/pkgconfig/Magick++.pc
--%{_libdir}/pkgconfig/ImageMagick++.pc
--%{_mandir}/man1/Magick++-config.*
--
--%files perl -f perl-pkg-files
--%defattr(-,root,root,-)
--%{_mandir}/man3/*
--%doc PerlMagick/demo/ PerlMagick/Changelog PerlMagick/README.txt
--
++%if 0%{?moffix} != 6
+ %files c++-devel
+ %defattr(-,root,root,-)
+ %doc Magick++/examples
+@@ -308,6 +356,7 @@
+ %defattr(-,root,root,-)
+ %{_mandir}/man3/*
+ %doc PerlMagick/demo/ PerlMagick/Changelog PerlMagick/README.txt
++%endif
+ 
  
  %changelog
- * Thu May  5 2016 Jan Horak <jhorak@redhat.com> - 6.7.2.7-5
