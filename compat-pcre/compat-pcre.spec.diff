@@ -1,91 +1,86 @@
 --- compat-pcre.spec.old	2015-02-27 21:16:02.000000000 +0800
-+++ compat-pcre.spec	2016-11-30 15:25:21.000000000 +0800
-@@ -1,9 +1,9 @@
--Name: pcre
++++ compat-pcre.spec	2017-01-27 20:17:18.000000000 +0800
+@@ -1,9 +1,17 @@
++%if 0%{?moffix} == 6
 +Name: compat-pcre
++%else
+ Name: pcre
++%endif
  Version: 7.8
  Release: 7%{?dist}
  Summary: Perl-compatible regular expression library
  URL: http://www.pcre.org/
--Source: ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/%{name}-%{version}.tar.bz2
++%if 0%{?moffix} == 6
 +Source: ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-%{version}.tar.bz2
++%else
+ Source: ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/%{name}-%{version}.tar.bz2
++%endif
  Patch0: pcre-7.3-multilib.patch
  # In upstream, bugs #676636, #676643
  Patch1: pcre-8.12-manual_typos.patch
-@@ -33,23 +33,8 @@
+@@ -33,6 +41,7 @@
  themselves still follow Perl syntax and semantics. The header file
  for the POSIX-style functions is called pcreposix.h.
  
--%package devel
--Summary: Development files for %{name}
--Group: Development/Libraries
--Requires: %{name} = %{version}-%{release}
--
--%description devel
--Development files (Headers, libraries for dynamic linking, etc) for %{name}.
--
--%package static
--Summary: Static library for %{name}
--Group: Development/Libraries
--
--%description static
--Library for static linking for %{name}.
--
++%if 0%{?moffix} != 6
+ %package devel
+ Summary: Development files for %{name}
+ Group: Development/Libraries
+@@ -47,9 +56,14 @@
+ 
+ %description static
+ Library for static linking for %{name}.
++%endif
+ 
  %prep
--%setup -q
++%if 0%{?moffix} == 6
 +%setup -q -n pcre-%{version}
++%else
+ %setup -q
++%endif
  %patch0 -p1 -b .multilib
  %patch1 -p0 -b .manual_typos
  %patch2 -p1 -b .terminated_typos
-@@ -73,22 +58,8 @@
+@@ -73,6 +87,10 @@
  %install
  rm -rf $RPM_BUILD_ROOT
  
--make install DESTDIR=$RPM_BUILD_ROOT
--
- mkdir -p $RPM_BUILD_ROOT/%{_lib}
--mv $RPM_BUILD_ROOT%{_libdir}/libpcre.so.* $RPM_BUILD_ROOT/%{_lib}/
--pushd $RPM_BUILD_ROOT%{_libdir}
--ln -fs ../../%{_lib}/libpcre.so.0 libpcre.so
--popd
--
--# get rid of unneeded *.la files
--rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
--
--# These are handled by %%doc in %%files
--rm -rf $RPM_BUILD_ROOT%{_docdir}/pcre
--
--%check
--make check
++%if 0%{?moffix} == 6
++mkdir -p $RPM_BUILD_ROOT/%{_lib}
 +cp -a .libs/libpcre.so.* $RPM_BUILD_ROOT/%{_lib}/
++%else
+ make install DESTDIR=$RPM_BUILD_ROOT
  
- %post -p /sbin/ldconfig
+ mkdir -p $RPM_BUILD_ROOT/%{_lib}
+@@ -86,6 +104,7 @@
  
-@@ -100,27 +71,8 @@
+ # These are handled by %%doc in %%files
+ rm -rf $RPM_BUILD_ROOT%{_docdir}/pcre
++%endif
+ 
+ %check
+ make check
+@@ -100,12 +119,15 @@
  %files
  %defattr(-,root,root)
  /%{_lib}/*.so.*
--%{_libdir}/*.so.*
--%{_mandir}/man1/*
--%{_bindir}/pcregrep
--%{_bindir}/pcretest
++%if 0%{?moffix} != 6
+ %{_libdir}/*.so.*
+ %{_mandir}/man1/*
+ %{_bindir}/pcregrep
+ %{_bindir}/pcretest
++%endif
  %doc AUTHORS COPYING LICENCE NEWS README ChangeLog
  
--%files devel
--%defattr(-,root,root)
--%{_libdir}/*.so
--%{_libdir}/pkgconfig/*
--%{_includedir}/*.h
--%{_mandir}/man3/*
--%{_bindir}/pcre-config
--%doc doc/*.txt doc/html
--%doc HACKING
--
--%files static
--%defattr(-,root,root)
--%{_libdir}/*.a
--%doc COPYING LICENCE
--
++%if 0%{?moffix} != 6
+ %files devel
+ %defattr(-,root,root)
+ %{_libdir}/*.so
+@@ -120,6 +142,7 @@
+ %defattr(-,root,root)
+ %{_libdir}/*.a
+ %doc COPYING LICENCE
++%endif
+ 
  %changelog
  * Thu Feb 26 2015 Petr Pisar <ppisar@redhat.com> - 7.8-7
- - Check starting offest for pointing into a subject string
