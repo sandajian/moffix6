@@ -1,67 +1,78 @@
 --- compat-libmemcached.spec.old	2010-06-25 00:04:26.000000000 +0800
-+++ compat-libmemcached.spec	2016-12-02 09:26:46.000000000 +0800
-@@ -1,4 +1,4 @@
--Name:      libmemcached
++++ compat-libmemcached.spec	2017-01-27 17:45:46.000000000 +0800
+@@ -1,4 +1,8 @@
++%if 0%{?moffix} == 6
 +Name:      compat-libmemcached
++%else
+ Name:      libmemcached
++%endif
  Summary:   Client library and command line tools for memcached server
  Version:   0.31
  Release:   1.1%{?dist}
-@@ -33,20 +33,8 @@
+@@ -33,6 +37,7 @@
  memerror - Creates human readable messages from libmemcached error codes.
  
  
--%package devel
--Summary: Header files and development libraries for %{name}
--Group: Development/Libraries
--Requires: %{name} = %{version}-%{release}
--Requires: pkgconfig
--
--%description devel
--This package contains the header files and development libraries
--for %{name}. If you like to develop programs using %{name}, 
--you will need to install %{name}-devel.
--
--
++%if 0%{?moffix} != 6
+ %package devel
+ Summary: Header files and development libraries for %{name}
+ Group: Development/Libraries
+@@ -43,10 +48,15 @@
+ This package contains the header files and development libraries
+ for %{name}. If you like to develop programs using %{name}, 
+ you will need to install %{name}-devel.
++%endif
+ 
+ 
  %prep
--%setup -q
++%if 0%{?moffix} == 6
 +%setup -q -n libmemcached-%{version}
++%else
+ %setup -q
++%endif
  
  %{__mkdir} examples
  %{__cp} -p tests/*.{c,cpp,h} examples/
-@@ -59,7 +47,8 @@
+@@ -59,7 +69,12 @@
  
  %install
  %{__rm} -rf %{buildroot}
--%{__make} install  DESTDIR="%{buildroot}" AM_INSTALL_PROGRAM_FLAGS=""
++%if 0%{?moffix} == 6
 +%{__mkdir} -p %{buildroot}%{_libdir}
 +cp -a libmemcached*/.libs/libmemcached*.so.* %{buildroot}%{_libdir}/
++%else
+ %{__make} install  DESTDIR="%{buildroot}" AM_INSTALL_PROGRAM_FLAGS=""
++%endif
  
  
  %check
-@@ -83,26 +72,8 @@
+@@ -83,16 +98,21 @@
  %files
  %defattr (-,root,root,-) 
  %doc AUTHORS COPYING README THANKS TODO ChangeLog
--%{_bindir}/mem*
--%exclude %{_libdir}/libmemcached.a
--%exclude %{_libdir}/libmemcached.la
--%exclude %{_libdir}/libmemcachedutil.a
--%exclude %{_libdir}/libmemcachedutil.la
++%if 0%{?moffix} != 6
+ %{_bindir}/mem*
+ %exclude %{_libdir}/libmemcached.a
+ %exclude %{_libdir}/libmemcached.la
+ %exclude %{_libdir}/libmemcachedutil.a
+ %exclude %{_libdir}/libmemcachedutil.la
++%endif
  %{_libdir}/libmemcached.so.*
  %{_libdir}/libmemcachedutil.so.*
--%{_mandir}/man1/mem*
--
--
--%files devel
--%defattr (-,root,root,-) 
--%doc examples
--%{_includedir}/libmemcached
--%{_libdir}/libmemcached.so
--%{_libdir}/libmemcachedutil.so
--%{_libdir}/pkgconfig/libmemcached.pc
--%{_libdir}/libmemcached.so
--%{_mandir}/man3/libmemcached*.3.gz
--%{_mandir}/man3/memcached_*.3.gz
++%if 0%{?moffix} != 6
+ %{_mandir}/man1/mem*
++%endif
+ 
+ 
++%if 0%{?moffix} != 6
+ %files devel
+ %defattr (-,root,root,-) 
+ %doc examples
+@@ -103,6 +123,7 @@
+ %{_libdir}/libmemcached.so
+ %{_mandir}/man3/libmemcached*.3.gz
+ %{_mandir}/man3/memcached_*.3.gz
++%endif
  
  
  %changelog
