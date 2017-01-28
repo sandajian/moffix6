@@ -1,18 +1,12 @@
---- gettext.spec.old	2016-12-21 01:42:12.000000000 +0800
-+++ gettext.spec	2016-12-24 14:09:54.000000000 +0800
-@@ -55,7 +55,6 @@
+--- gettext.spec.old	2016-11-29 19:53:29.000000000 +0800
++++ gettext.spec	2017-01-28 16:23:53.000000000 +0800
+@@ -55,7 +55,9 @@
  Requires(post): info
  Requires(preun): info
  # for F17 UsrMove
--Conflicts: filesystem < 3
++%if 0%{?moffix} != 6
+ Conflicts: filesystem < 3
++%endif
  Provides: /bin/gettext
  # exception for bundled gnulib copylib
  Provides: bundled(gnulib)
-@@ -183,6 +182,7 @@
- 
- install -pm 755 %SOURCE2 ${RPM_BUILD_ROOT}/%{_bindir}/msghack
- install -pm 644 %SOURCE3 ${RPM_BUILD_ROOT}/%{_mandir}/man1/msghack.1
-+sed -i -e "s@/usr/bin/python3@/usr/bin/python@g" ${RPM_BUILD_ROOT}/%{_bindir}/msghack
- 
- 
- # make preloadable_libintl.so executable
