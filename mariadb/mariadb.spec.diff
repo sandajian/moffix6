@@ -1,64 +1,98 @@
---- mariadb.spec.old	2016-12-17 07:37:46.000000000 +0800
-+++ mariadb.spec	2016-12-30 08:39:36.000000000 +0800
-@@ -25,7 +25,7 @@
+--- mariadb.spec.old	2017-01-25 06:18:19.000000000 +0800
++++ mariadb.spec	2017-02-10 09:02:12.000000000 +0800
+@@ -24,11 +24,15 @@
+ # TokuDB engine is now part of MariaDB, but it is available only for x86_64;
  # variable tokudb allows to build with TokuDB storage engine
  # Temporarily disabled in F21+ for https://mariadb.atlassian.net/browse/MDEV-6446
- %ifarch x86_64
--%bcond_without tokudb
++%if 0%{?moffix} == 6
 +%bcond_with tokudb
++%else
+ %ifarch x86_64
+ %bcond_without tokudb
  %else
  %bcond_with tokudb
  %endif
-@@ -237,6 +237,8 @@
- Requires:         fileutils
- Requires:         grep
++%endif
+ 
+ # Mroonga engine is now part of MariaDB, but it only builds for x86_64;
+ # variable mroonga allows to build with Mroonga storage engine
+@@ -235,6 +239,9 @@
  Requires:         %{name}-common%{?_isa} = %{sameevr}
+ # Explicit EVR requirement for -libs is needed for RHBZ#1406320
+ Requires:         %{name}-libs%{?_isa} = %{sameevr}
++%if 0%{?moffix} == 6
 +Requires:         %{name}-config%{?_isa} = %{sameevr}
-+Requires:         %{name}-libs%{?_isa} = %{sameevr}
++%endif
  
  %if %{with mysql_names}
  Provides:         mysql = %{sameevr}
-@@ -282,6 +284,7 @@
+@@ -243,7 +250,9 @@
+ Provides:         mysql-compat-client%{?_isa} = %{sameevr}
+ %endif
+ 
++%if 0%{?moffix} != 6
+ Suggests:         %{name}-server%{?_isa} = %{sameevr}
++%endif
+ 
+ # MySQL (with caps) is upstream's spelling of their own RPMs for mysql
+ %{?obsoleted_mysql_case_evr:Obsoletes: MySQL < %{obsoleted_mysql_case_evr}}
+@@ -280,6 +289,9 @@
  Summary:          The shared libraries required for MariaDB/MySQL clients
  Group:            Applications/Databases
  Requires:         %{name}-common%{?_isa} = %{sameevr}
++%if 0%{?moffix} == 6
 +Requires:         %{name}-config%{?_isa} = %{sameevr}
++%endif
  %if %{with mysql_names}
  Provides:         mysql-libs = %{sameevr}
  Provides:         mysql-libs%{?_isa} = %{sameevr}
-@@ -605,6 +608,8 @@
+@@ -373,7 +385,11 @@
+ %endif
+ Requires:         %{name}-common%{?_isa} = %{sameevr}
+ Requires:         %{name}-errmsg%{?_isa} = %{sameevr}
++%if 0%{?moffix} == 6
++Requires:         %{name}-server-utils%{?_isa} = %{sameevr}
++%else
+ Recommends:       %{name}-server-utils%{?_isa} = %{sameevr}
++%endif
+ Requires:         %{_sysconfdir}/my.cnf
+ Requires:         %{_sysconfdir}/my.cnf.d
+ Requires:         sh-utils
+@@ -447,7 +463,9 @@
+ %package          server-utils
+ Summary:          Non-essential server utilities for MariaDB/MySQL applications
+ Group:            Applications/Databases
++%if 0%{?moffix} != 6
+ Suggests:         %{name}-server%{?_isa} = %{sameevr}
++%endif
+ %if %{with mysql_names}
+ Provides:         mysql-perl = %{sameevr}
+ %endif
+@@ -620,6 +638,9 @@
+ %ifarch ppc ppc64 ppc64p7 s390 s390x
  cat %{SOURCE52} | tee -a mysql-test/rh-skipped-tests.list
  %endif
- 
++%if 0%{?moffix} == 6
 +echo "plugins.feedback_plugin_load                    : failed" >> mysql-test/rh-skipped-tests.list
-+
++%endif
+ 
  cp %{SOURCE2} %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} \
     %{SOURCE14} %{SOURCE15} %{SOURCE16} %{SOURCE17} %{SOURCE18} %{SOURCE19} \
-    %{SOURCE70} scripts
-@@ -759,7 +764,7 @@
- # but that's pretty wacko --- see also %%{name}-file-contents.patch)
- install -p -m 644 Docs/INFO_SRC %{buildroot}%{_libdir}/mysql/
- install -p -m 644 Docs/INFO_BIN %{buildroot}%{_libdir}/mysql/
--rm -rf %{buildroot}%{_pkgdocdir}/MariaDB-server-%{version}/
-+rm -rf %{buildroot}%{_docdir}/%{_pkgdocdirname}/MariaDB-server-%{version}/
- 
- mkdir -p %{buildroot}%{logfiledir}
- chmod 0750 %{buildroot}%{logfiledir}
-@@ -1163,7 +1168,9 @@
+@@ -1163,7 +1184,9 @@
  %{_bindir}/aria_ftdump
  %{_bindir}/aria_pack
  %{_bindir}/aria_read_log
-+%if %{with init_systemd}
++%if 0%{?moffix} != 6
  %{_bindir}/mariadb-service-convert
 +%endif
  %{_bindir}/myisamchk
  %{_bindir}/myisam_ftdump
  %{_bindir}/myisamlog
-@@ -1265,11 +1272,13 @@
- %{_datadir}/%{pkg_name}/policy/apparmor/usr.sbin.mysqld*
+@@ -1249,11 +1272,13 @@
  %{_datadir}/%{pkg_name}/policy/selinux/README
  %{_datadir}/%{pkg_name}/policy/selinux/mariadb-server.*
-+%if %{with init_systemd}
+ %{_datadir}/%{pkg_name}/policy/selinux/mariadb.*
++%if 0%{?moffix} != 6
  %{_datadir}/%{pkg_name}/systemd/mariadb.service
  # mariadb@ is installed only when we have cmake newer than 3.3
  %if 0%{?fedora} > 22 || 0%{?rhel} > 7

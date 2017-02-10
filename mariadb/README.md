@@ -1,7 +1,7 @@
 #mariadb
 
 ##Compiled from
-<pre>mariadb-10.1.20-1.fc26.src.rpm</pre>
+<pre>mariadb-10.1.21-1.fc25.src.rpm</pre>
 
 ##Modified
 <pre>
@@ -10,9 +10,8 @@
 	plugins.feedback_plugin_load test failed:
 		Warning        1265    Data truncated for column 'VARIABLE_VALUE' at row 498
 - Remove systemd-releated files
-- 'mariadb' requires 'mariadb-config' and 'mariadb-libs'
+- 'mariadb' requires 'mariadb-config'
 - 'mariadb-libs' requires 'mariadb-config'
-- Fix a '%{_pkgdocdir}' related issue.
 </pre>
 
 ##Notes
