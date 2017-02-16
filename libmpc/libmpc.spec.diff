@@ -1,0 +1,13 @@
+--- libmpc.spec.old	2012-07-20 23:54:30.000000000 +0800
++++ libmpc.spec	2017-02-16 15:52:40.000000000 +0800
+@@ -9,6 +9,10 @@
+ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+ BuildRequires: gmp-devel >= 4.3.2
+ BuildRequires: mpfr-devel >= 2.4.2
++%if 0%{?moffix} == 6
++Requires: gmp >= 4.3.2
++Requires: mpfr >= 2.4.2
++%endif
+ BuildRequires: texinfo
+ 
+ %description
