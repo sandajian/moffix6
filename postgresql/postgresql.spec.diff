@@ -1,0 +1,176 @@
+--- postgresql.spec.old	2017-02-10 06:00:40.000000000 +0800
++++ postgresql.spec	2017-02-17 09:57:26.000000000 +0800
+@@ -33,7 +33,11 @@
+ %{?beta:%global __os_install_post /usr/lib/rpm/brp-compress}
+ 
+ %{!?test:%global test 1}
++%if 0%{?moffix} == 6
++%global upgrade 0
++%else
+ %{!?upgrade:%global upgrade 1}
++%endif
+ %{!?plpython:%global plpython 1}
+ %if 0%{?fedora} > 12
+ %{!?plpython3:%global plpython3 1}
+@@ -50,7 +54,11 @@
+ %{!?xml:%global xml 1}
+ %{!?pam:%global pam 1}
+ %{!?sdt:%global sdt 1}
++%if 0%{?moffix} == 6
++%{!?selinux:%global selinux 0}
++%else
+ %{!?selinux:%global selinux 1}
++%endif
+ %{!?runselftest:%global runselftest 1}
+ 
+ # By default, patch(1) creates backup files when chunks apply with offsets.
+@@ -120,7 +128,9 @@
+ BuildRequires: perl(ExtUtils::Embed), perl-devel
+ BuildRequires: perl-generators
+ BuildRequires: readline-devel zlib-devel
++%if 0%{?moffix} != 6
+ BuildRequires: systemd-units util-linux
++%endif
+ BuildRequires: multilib-rpm-config
+ 
+ # postgresql-setup build requires
+@@ -208,6 +218,11 @@
+ Requires: %{name}%{?_isa} = %{version}-%{release}
+ Requires: %{name}-libs%{?_isa} = %{version}-%{release}
+ Requires(pre): /usr/sbin/useradd
++%if 0%{?moffix} == 6
++Requires(preun): initscripts
++Requires(postun): initscripts
++Requires(post): policycoreutils
++%else
+ # We require this to be present for %%{_prefix}/lib/tmpfiles.d
+ Requires: systemd-units
+ # Make sure it's there when scriptlets run, too
+@@ -218,6 +233,7 @@
+ # is not valid.  We can use post because this particular %%triggerun script
+ # should fire just after this package is installed.
+ Requires(post): systemd-sysv
++%endif
+ Requires(post): chkconfig
+ # Packages which provide postgresql plugins should build-require
+ # postgresql-devel and require
+@@ -407,9 +423,14 @@
+ 
+ %configure \
+     pgdocdir=%{_pkgdocdir} \
++%if 0%{?moffix} == 6
++    initscriptsdir=/etc/rc.d/init.d \
++    --with-sysvinit \
++%else
+     systemdunitsdir=%{_prefix}/lib/systemd/system \
+     systemduserunitsdir=%{_sysconfdir}/systemd/system \
+     systemdlegacyscriptsdir=%{_libexecdir}/initscripts/legacy-actions \
++%endif
+     PGVERSION=%{version} \
+     PGMAJORVERSION=%{majorversion} \
+     NAME_DEFAULT_PREV_SERVICE=postgresql
+@@ -656,6 +677,16 @@
+ # causes FTBFS (at least on RHEL6), see rhbz#1250006.
+ cp $RPM_BUILD_ROOT/%{_pkgdocdir}/README.rpm-dist ./
+ 
++%if 0%{?moffix} == 6
++cat > $RPM_BUILD_ROOT%{_sysconfdir}/postgresql-setup/upgrade/postgresql.conf <<EOF
++id             postgresql
++major          8.4
++data_default   /var/lib/pgsql/data
++engine         /usr/bin
++description    "Upgrade data from system PostgreSQL version (PostgreSQL 8.4)"
++pghost_override        /tmp
++EOF
++%else
+ cat > $RPM_BUILD_ROOT%{_sysconfdir}/postgresql-setup/upgrade/postgresql.conf <<EOF
+ id              postgresql
+ major           %{prevmajorversion}
+@@ -665,6 +696,7 @@
+ description     "Upgrade data from system PostgreSQL version (PostgreSQL %{prevmajorversion})"
+ redhat_sockets_hack no
+ EOF
++%endif
+ 
+ 
+ make DESTDIR=$RPM_BUILD_ROOT install-world
+@@ -709,9 +741,11 @@
+ # Create the directory for sockets.
+ install -d -m 755 $RPM_BUILD_ROOT/var/run/postgresql
+ 
++%if 0%{?moffix} != 6
+ # ... and make a tmpfiles script to recreate it at reboot.
+ mkdir -p $RPM_BUILD_ROOT%{_tmpfilesdir}
+ install -m 0644 %{SOURCE9} $RPM_BUILD_ROOT%{_tmpfilesdir}/postgresql.conf
++%endif
+ 
+ # PGDATA needs removal of group and world permissions due to pg_pwd hole.
+ install -d -m 700 $RPM_BUILD_ROOT/var/lib/pgsql/data
+@@ -869,6 +903,26 @@
+ /usr/sbin/useradd -M -N -g postgres -o -r -d /var/lib/pgsql -s /bin/bash \
+ 	-c "PostgreSQL Server" -u 26 postgres >/dev/null 2>&1 || :
+ 
++%if 0%{?moffix} == 6
++%post server
++if [ $1 -eq 1 ] ; then
++    # Initial installation
++    /sbin/chkconfig --add postgresql
++fi
++/sbin/ldconfig
++
++%preun server
++if [ $1 -eq 0 ] ; then
++    # Package removal, not upgrade
++    /sbin/service postgresql stop >/dev/null 2>&1
++    /sbin/chkconfig --del postgresql
++fi
++
++%postun server
++if [ $1 -ge 1 ] ; then
++    /sbin/service postgresql condrestart >/dev/null 2>&1 || :
++fi
++%else
+ %post server
+ %if 0%{?systemd_post:1}
+ %systemd_post postgresql.service
+@@ -911,6 +965,7 @@
+     /bin/systemctl try-restart postgresql.service >/dev/null 2>&1 || :
+ fi
+ %endif
++%endif
+ 
+ %clean
+ 
+@@ -1094,6 +1149,9 @@
+ %{_libdir}/libpq.so.*
+ 
+ %files server -f server.lst
++%if 0%{?moffix} == 6
++/etc/rc.d/init.d/postgresql
++%endif
+ %{_bindir}/initdb
+ %{_bindir}/pg_basebackup
+ %{_bindir}/pg_controldata
+@@ -1128,8 +1186,10 @@
+ %{_libdir}/pgsql/libpqwalreceiver.so
+ %{_libdir}/pgsql/pg_prewarm.so
+ %{_libdir}/pgsql/plpgsql.so
++%if 0%{?moffix} != 6
+ %dir %{_libexecdir}/initscripts/legacy-actions/postgresql
+ %{_libexecdir}/initscripts/legacy-actions/postgresql/*
++%endif
+ %{_libexecdir}/postgresql-check-db-dir
+ %{_libexecdir}/postgresql-ctl
+ %dir %{_sysconfdir}/postgresql-setup
+@@ -1145,9 +1205,11 @@
+ %{_mandir}/man1/postgres.*
+ %{_mandir}/man1/postgresql-setup.*
+ %{_mandir}/man1/postmaster.*
++%if 0%{?moffix} != 6
+ %{_tmpfilesdir}/postgresql.conf
+ %{_unitdir}/postgresql.service
+ %{_unitdir}/postgresql@.service
++%endif
+ %attr(700,postgres,postgres) %dir /var/lib/pgsql
+ %attr(644,postgres,postgres) %config(noreplace) /var/lib/pgsql/.bash_profile
+ %attr(700,postgres,postgres) %dir /var/lib/pgsql/backups
