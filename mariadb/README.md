@@ -1,11 +1,10 @@
 #mariadb
 
 ##Compiled from
-<pre>mariadb-10.1.21-1.fc25.src.rpm</pre>
+<pre>mariadb-10.1.21-3.fc25.src.rpm</pre>
 
 ##Modified
 <pre>
-- Without `tokudb', for g++ 4.4.7 does not support designated initializers.
 - Remove test `plugins.feedback_plugin_load'
 	plugins.feedback_plugin_load test failed:
 		Warning        1265    Data truncated for column 'VARIABLE_VALUE' at row 498
@@ -16,6 +15,8 @@
 
 ##Notes
 <pre>
+- Using gcc 6.3.1
+- g++ 4.4.7 does not support designated initializers, so 'without tokudb'
 - Designated initializers:
 	struct a {int b; int c; };
 	struct a d = { .b=1, .c=2 };
