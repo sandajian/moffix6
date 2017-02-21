@@ -1,0 +1,35 @@
+--- systemtap.spec.old	2017-02-18 01:53:54.000000000 +0800
++++ systemtap.spec	2017-02-21 12:48:06.000000000 +0800
+@@ -120,8 +120,12 @@
+ BuildRequires: pkgconfig(libselinux)
+ %endif
+ %if %{with_sqlite}
++%if 0%{?moffix} == 6
++BuildRequires: sqlite-devel > 3.7
++%else
+ BuildRequires: sqlite-devel
+ %endif
++%endif
+ %if %{with_monitor}
+ BuildRequires: pkgconfig(json-c)
+ BuildRequires: pkgconfig(ncurses)
+@@ -240,6 +244,9 @@
+ %{?fedora:Suggests: kernel-devel}
+ Requires: gcc make
+ # Suggest: kernel-debuginfo
++%if 0%{?moffix} == 6 && %{with_sqlite}
++Requires: sqlite-libs > 3.7
++%endif
+ 
+ %description devel
+ This package contains the components needed to compile a systemtap
+@@ -275,6 +282,9 @@
+ %if %{with_mokutil}
+ Requires: mokutil
+ %endif
++%if 0%{?moffix} == 6 && %{with_sqlite}
++Requires: sqlite-libs > 3.7
++%endif
+ 
+ %description client
+ This package contains/requires the components needed to develop
