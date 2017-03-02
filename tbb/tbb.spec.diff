@@ -1,0 +1,10 @@
+--- tbb.spec.old	2017-01-02 18:25:35.000000000 +0800
++++ tbb.spec	2017-03-02 08:44:39.000000000 +0800
+@@ -1,6 +1,6 @@
+ %global releasedate 20161128
+ 
+-%if 0%{?fedora} || 0%{?rhel} >= 8
++%if 0%{?moffix} == 6 || 0%{?fedora} || 0%{?rhel} >= 8
+ %global with_python3 1
+ %endif
+ 
