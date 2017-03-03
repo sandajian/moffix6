@@ -1,0 +1,11 @@
+--- pam_mysql.spec.old	2016-02-05 01:26:20.000000000 +0800
++++ pam_mysql.spec	2017-03-03 14:43:32.000000000 +0800
+@@ -33,7 +33,7 @@
+   --enable-static=no \
+   --with-cyrus-sasl2
+ 
+-make %{?_smp_mflags}
++make %{?_smp_mflags} LDFLAGS="-lpam"
+ 
+ mv AUTHORS AUTHORS.lame
+ iconv -f latin1 -t utf-8 -o AUTHORS AUTHORS.lame
