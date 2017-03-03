@@ -5,6 +5,6 @@
 
 ##Modified
 <pre>
-- Added '-lpam' to avoid the following error:
+- Added 'LDFLAGS=-lpam' to avoid the following error:
 		/lib64/security/pam_mysql.so: undefined symbol: pam_set_data
 </pre>
