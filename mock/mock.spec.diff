@@ -1,0 +1,12 @@
+--- mock.spec.old	2017-02-28 00:33:58.000000000 +0800
++++ mock.spec	2017-03-08 11:06:35.000000000 +0800
+@@ -122,6 +122,9 @@
+ %setup -q
+ %if 0%{?rhel} == 6
+ sed -i "s|^USE_NSPAWN = True|USE_NSPAWN = False|" py/mockbuild/util.py
++%if 0%{?moffix} == 6
++sed -i "s|/usr/bin/df|/bin/df|" py/mockbuild/plugins/hw_info.py
++%endif
+ %endif
+ %if %{use_python3}
+ for file in py/mock.py py/mockchain.py; do
