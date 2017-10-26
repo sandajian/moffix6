@@ -1,7 +1,7 @@
 # gcc
 
 ## Compiled from
-<pre>Fedora .src.rpm</pre>
+<pre>gcc-7.2.1-2.fc27.src.rpm</pre>
 
 ## Modified
 <pre>
