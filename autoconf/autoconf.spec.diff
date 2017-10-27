@@ -1,6 +1,6 @@
---- autoconf.spec.old	2016-02-04 01:17:37.000000000 +0800
-+++ autoconf.spec	2017-01-17 13:25:21.000000000 +0800
-@@ -10,6 +10,10 @@
+--- autoconf.spec.old	2017-07-26 11:36:18.000000000 +0800
++++ autoconf.spec	2017-10-27 06:44:31.000000000 +0800
+@@ -9,6 +9,10 @@
  URL:        http://www.gnu.org/software/autoconf/
  
  Patch1:     autoconf-2.69-perl-5.22-autoscan.patch
@@ -11,7 +11,7 @@
  
  BuildArch:  noarch
  
-@@ -21,10 +25,16 @@
+@@ -19,11 +23,17 @@
  # m4 >= 1.4.6 is required, >= 1.4.14 is recommended:
  BuildRequires:      m4 >= 1.4.14
  Requires:           m4 >= 1.4.14
@@ -20,6 +20,7 @@
 +%endif
  BuildRequires:      emacs
  # the filtering macros are currently in /etc/rpm/macros.perl:
+ BuildRequires:      perl-generators
 +%if 0%{?moffix} == 6
 +BuildRequires:      perl-devel
 +%else
