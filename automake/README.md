@@ -1,17 +1,11 @@
-#automake
+# automake
 
-##Compiled from
-<pre>automake-1.15-7.fc25.src.rpm</pre>
+## Compiled from
+<pre>automake-1.15.1-2.fc27.src.rpm</pre>
 
-##Modified
+## Modified
 <pre>
 - 'BuildRequires: perl-macros' -> 'BuildRequires: perl-devel'
-- Add a blank line after '%autosetup -p1'
-- Do not 'autoreconf -iv', use './bootstrap.sh' instead.
-</pre>
-
-##Notes
-<pre>
-- 'autoreconf -iv' produces: automake: cannot open < ./%D%/automake.texi: No such file or directory
-- If automake is updated, we may recompile automake with 'autoreconf -iv'
+- Added a blank line after '%autosetup -p1'
+- Fixed 'docdir' related issues
 </pre>

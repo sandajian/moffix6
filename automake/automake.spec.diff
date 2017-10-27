@@ -1,6 +1,6 @@
---- automake.spec.old	2016-06-28 21:32:53.000000000 +0800
-+++ automake.spec	2017-01-17 14:00:19.000000000 +0800
-@@ -52,7 +52,11 @@
+--- automake.spec.old	2017-08-15 15:11:56.000000000 +0800
++++ automake.spec	2017-10-27 07:06:28.000000000 +0800
+@@ -53,7 +53,11 @@
  
  # the filtering macros are currently in /etc/rpm/macros.perl:
  BuildRequires: perl-generators
@@ -12,17 +12,15 @@
  
  # This is needed to allow 'help2man' to run 'automake --help' during build.
  BuildRequires:   perl(Thread::Queue)
-@@ -71,6 +75,9 @@
+@@ -72,6 +76,7 @@
  
  %prep
  %autosetup -p1
-+%if 0%{?moffix} == 6
 +
-+%endif
+ %if %{with check}
  autoreconf -iv
- 
- file=`find -name config.sub | head -1`
-@@ -91,6 +98,9 @@
+ %endif
+@@ -94,6 +99,9 @@
  
  %install
  make install DESTDIR=%{buildroot}
@@ -32,7 +30,7 @@
  
  %check
  # %%global TESTS_FLAGS t/preproc-errmsg t/preproc-basics
-@@ -109,7 +119,11 @@
+@@ -112,7 +120,11 @@
  
  %files
  %doc AUTHORS README THANKS NEWS README.aclocal README.multilib COPYING*
