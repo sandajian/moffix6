@@ -1,24 +1,24 @@
---- cmake.spec.old	2016-10-03 15:38:25.000000000 +0800
-+++ cmake.spec	2017-01-17 16:32:49.000000000 +0800
-@@ -82,6 +82,10 @@
- %if 0%{?rhel} && 0%{?rhel} <= 6
- Patch1001:      %{name}-libarchive3.patch
- %endif
-+%else
-+%if 0%{?moffix} == 6
-+Patch1001:      %{name}3-libarchive3.patch
-+%endif
- %endif
+--- cmake.spec.old	2017-09-21 16:09:20.000000000 +0800
++++ cmake.spec	2017-10-27 09:29:08.000000000 +0800
+@@ -7,7 +7,11 @@
  
- BuildRequires:  gcc-gfortran
-@@ -182,6 +186,10 @@
- %if 0%{?rhel} && 0%{?rhel} <= 6
- %patch1001 -p1
- %endif
-+%else
+ # Set to bcond_without or use --with bootstrap if bootstrapping a new release
+ # or architecture
 +%if 0%{?moffix} == 6
-+%patch1001 -p1
++%bcond_without bootstrap
++%else
+ %bcond_with bootstrap
 +%endif
- %endif
  
- # We cannot use backups with patches to Modules as they end up being installed
+ # Build with Emacs support
+ %bcond_without cmake_enables_emacs
+@@ -379,6 +383,9 @@
+ %ifarch s390x
+ NO_TEST="$NO_TEST|RunCMake.File_Generate"
+ %endif
++%if 0%{?moffix} == 6
++NO_TEST="$NO_TEST|Server"
++%endif
+ export NO_TEST
+ bin/ctest%{?name_suffix} -V -E "$NO_TEST" %{?_smp_mflags}
+ popd

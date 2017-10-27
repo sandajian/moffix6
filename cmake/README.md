@@ -1,14 +1,10 @@
-#cmake
+# cmake
 
-##Compiled from
-<pre>cmake-3.6.2-6.fc25.src.rpm</pre>
+## Compiled from
+<pre>cmake-3.9.3-1.fc27.src.rpm</pre>
 
-##Modified
+## Modified
 <pre>
-- Added cmake3-libarchive3.patch
-</pre>
-
-##Notes
-<pre>
-- DO NOT USE root to compile
+- Use '%bcond_without bootstrap' (./configure --no-system-libs)
+- Added NO_TEST="$NO_TEST|Server"
 </pre>
